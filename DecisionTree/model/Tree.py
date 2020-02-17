@@ -71,8 +71,7 @@ class ID3Tree:
 
         if greatestInformationGain >=self.epsilon:
             return theFeatInd
-        else:
-            return -1
+        return -1
 
     #create Tree
     def __createTree(self,dataset):
@@ -119,5 +118,4 @@ class ID3Tree:
             return True,list(labelCount.keys())[0]
         else:
             return False,sorted(labelCount.items(),key=lambda x:x[1])[0][0]
-
 
