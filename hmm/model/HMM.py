@@ -1,8 +1,8 @@
 #!/usr/bin/env python 
 # -*- coding:utf-8 -*-
 """
-FileName: HMM.py
-Description: HMM Model
+FileName: hmm.py
+Description: hmm Model
 Author: Barry Chow
 Date: 2020/2/3 11:24 PM
 Version: 0.1
@@ -10,7 +10,7 @@ Version: 0.1
 import numpy as np
 
 class HiddenMarkovModel(object):
-    #init HMM model
+    #init hmm model
     def __init__(self,A,B,PI,O):
         #params check(ignored)
 

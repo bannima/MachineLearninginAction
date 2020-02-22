@@ -8,7 +8,10 @@ Date: 2020/2/10 6:46 PM
 Version: 0.1
 """
 
+
+from model.Tree import CART
 from model.Tree import ID3Tree
+from numpy import *
 #load dataset
 def loadDataset(filename):
     res = []
@@ -19,10 +22,19 @@ def loadDataset(filename):
     return dataset,labels
 
 if __name__ == '__main__':
-    dataset,labels = loadDataset('./dataset/loads.txt')
+    '''dataset,labels = loadDataset('./dataset/loads.txt')
     model = ID3Tree(dataset,labels)
     tree = model.createTree()
-    print(tree)
+    print(tree)'''
+
+    cart = CART()
+    testMat = mat(eye(4))
+    mat0,mat1 = cart.binarySplitDataset(testMat,1,0.5)
+    print(mat0)
+    print(mat1)
+
+
+
 
 
 

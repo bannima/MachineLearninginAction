@@ -8,7 +8,7 @@ Date: 2020/2/3 11:24 PM
 Version: 0.1
 """
 import numpy as np
-from HMM.model.HMM import HiddenMarkovModel
+from hmm.model.HMM import HiddenMarkovModel
 
 if __name__ =='__main__':
 

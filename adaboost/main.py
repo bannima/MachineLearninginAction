@@ -48,4 +48,3 @@ if __name__ == '__main__':
     testArr,testLabelArr = loadHorseColicDataset('./dataset/horseColicTest2.txt')
     errorRate = adaboost.pred(testArr,testLabelArr)
     print("\n\nhorse colic testArrRate: ",errorRate)
-
