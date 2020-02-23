@@ -8,7 +8,7 @@ Date: 2020/2/10 6:47 PM
 Version: 0.1
 """
 import math
-from numpy import nonzero
+from numpy import *
 
 class ID3Tree:
     def __init__(self,dataset,labels,epsilon = 0.00001):
@@ -121,15 +121,3 @@ class ID3Tree:
             return False,sorted(labelCount.items(),key=lambda x:x[1])[0][0]
 
 
-'''
-classification and regression tree implementation
-
-'''
-class CART(object):
-    def __init__(self):
-        pass
-
-    def binarySplitDataset(self,dataset,feature,value):
-        mat0 = dataset[nonzero(dataset[:,feature]>value)[0],:]
-        mat1 = dataset[nonzero(dataset[:,feature]<=value)[0],:]
-        return mat0,mat1
