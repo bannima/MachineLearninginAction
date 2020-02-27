@@ -17,7 +17,7 @@ class BaseClassifier(metaclass=ABCMeta):
         Use derived classes instead.
     """
     @abstractmethod
-    def fit(self,X,y,feat_labels):
+    def fit(self,X,y):
         """Given train data X and labels y,and feature labels,  fit the classifier
 
         Parameters

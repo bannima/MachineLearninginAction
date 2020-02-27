@@ -64,7 +64,7 @@ class BaseDecisionTree(BaseClassifier,metaclass=ABCMeta):
         """
         filtered_dataset = dataset[nonzero(dataset[:, feat_ind] == feat_val)[0]]
         filtered_labels = labels[nonzero(dataset[:, feat_ind] == feat_val)[0]]
-        return filtered_dataset,filtered_labels
+        return delete(filtered_dataset,[feat_ind],axis=1),filtered_labels
 
     def _calc_conditional_entropy(self,dataset,labels,feat_ind):
         """calculate the emperical conditional entropy according to given feature index
@@ -85,7 +85,7 @@ class BaseDecisionTree(BaseClassifier,metaclass=ABCMeta):
         feat_value_list = set(dataset[:,feat_ind].T.tolist()[0])
         for feat_val in feat_value_list:
             filtered_dataset,filtered_labels = self._filter_dataset_by_feat_val(dataset,labels,feat_ind,feat_val)
-            conditional_entropy -= float(shape(filtered_dataset)[0])/m*\
+            conditional_entropy += float(shape(filtered_dataset)[0])/m*\
                 self._calc_shannon_entropy(filtered_labels)
         return conditional_entropy
 
@@ -111,18 +111,18 @@ class BaseDecisionTree(BaseClassifier,metaclass=ABCMeta):
 
         Returns
         -------
-        the corresponding feature index of minimum criterion and minimum criterion
+        the corresponding feature index of maximum criterion and maximum criterion
 
         """
-        _,n = shape(dataset);minimum_criterion= inf;best_ind = -1
+        _,n = shape(dataset);maximum_criterion= -inf;best_ind = -1
         for feat_ind in range(n):
-            if self._criterion(dataset,labels,feat_ind)<minimum_criterion:
-                minimum_criterion = self._criterion(dataset,labels,feat_ind)
+            if self._criterion(dataset,labels,feat_ind)>maximum_criterion:
+                maximum_criterion = self._criterion(dataset,labels,feat_ind)
                 best_ind = feat_ind
 
-        return best_ind,minimum_criterion
+        return best_ind,maximum_criterion
 
-    def _create_tree(self,dataset,labels,feat_labels):
+    def _create_tree(self,dataset,labels):
         """create decision tree based on criterion
 
         Parameters
@@ -141,24 +141,25 @@ class BaseDecisionTree(BaseClassifier,metaclass=ABCMeta):
         #labels are the same kind, return the specific label
         if num_labels==1:
             return most_label
-        #empty feature set,return the most occured label
-        if self._check_features(dataset)==0:
+        #empty feature set or all the same feature combination, return the most occured label
+        feat_nums,single_feat_comb = self._check_features(dataset)
+        if feat_nums==0 or single_feat_comb:
             return most_label
         #choose the best feature
-        best_ind, minimum_criterion = self._choose_best_feat(dataset,labels)
+        best_ind, maximum_criterion = self._choose_best_feat(dataset,labels)
         #criterion is less than epsilon, return most occuerd label
-        if minimum_criterion<self.epsilon:
+        if maximum_criterion<self.epsilon:
             return most_label
         for feat_val in set(dataset[:,best_ind].T.tolist()[0]):
             filtered_dataset,filtered_labels = self._filter_dataset_by_feat_val(dataset,labels,best_ind,feat_val)
-            tree[feat_val]=self._create_tree(filtered_dataset,filtered_labels,feat_labels)
+            tree[feat_val]=self._create_tree(filtered_dataset,filtered_labels)
 
-        return {feat_labels[best_ind]:tree}
+        return {self.feat_labels[best_ind]:tree}
 
 
     def _check_features(self,dataset):
         """
-        return the feature nums
+        return the nums of feature and whether contains only one features combination
 
         Parameters
         ----------
@@ -168,12 +169,15 @@ class BaseDecisionTree(BaseClassifier,metaclass=ABCMeta):
         -------
         the feature nums, int
 
+        is single feature cmbination, boolean
+
         """
-        return shape(dataset)[1]
+
+        return shape(dataset)[1], False not in (dataset==dataset[0])
 
     def _check_labels(self,labels):
         """
-        check the dataset label kinds
+        check the dataset label kinds, and most occured label and max count
 
         Parameters
         ----------
@@ -196,13 +200,22 @@ class BaseDecisionTree(BaseClassifier,metaclass=ABCMeta):
 
         return len(set(labels.T.tolist()[0])),most_label,max_count
 
+    def set_feature_labels(self,feat_labels):
+        self.feat_labels = feat_labels
 
-    def fit(self,X,y,feat_labels):
-        tree = self._create_tree(X,y,feat_labels)
+    def fit(self,X,y):
+        tree = self._create_tree(X,y)
         print(tree)
 
     def predict(self,X):
         pass
+
+    '''
+    @abstractmethod
+    def plot_tree(self):
+        pass
+    '''
+
 
 
 class ID3(BaseDecisionTree):
@@ -243,6 +256,7 @@ class C45(BaseDecisionTree):
     def _criterion(self,dataset,labels,feat_ind):
         """information gain rate for C4.5 model
         which is (entropy(labels)-conditionalentropy(labels,feat_ind))/entropy(feat_ind)
+        note that we skip this feature by return inf when the feature contains the same feature value
 
         Parameters
         ----------
@@ -257,13 +271,17 @@ class C45(BaseDecisionTree):
         information gain, float
 
         """
+        if float(super()._calc_shannon_entropy(dataset[:, feat_ind]))==0.0:
+            return inf
         return (super()._calc_shannon_entropy(labels)-super()._calc_conditional_entropy(dataset,labels,feat_ind))\
                /float(super()._calc_shannon_entropy(dataset[:,feat_ind]))
 
 
 
 
-
+"""
+warining: abandoned 
+"""
 class ID3Tree:
     def __init__(self,dataset,labels,epsilon = 0.00001):
         self.epsilon = epsilon

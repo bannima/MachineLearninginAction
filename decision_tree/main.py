@@ -8,10 +8,14 @@ Date: 2020/2/10 6:46 PM
 Version: 0.1
 """
 
-from model.cart import CART
-from model.tree import ID3Tree
-from model.tree import ID3,C45
+from cart import CART
+from tree import ID3Tree
+from tree import ID3,C45
 from numpy import *
+from sklearn.tree import DecisionTreeClassifier,DecisionTreeRegressor
+from sklearn.ensemble import GradientBoostingClassifier,GradientBoostingRegressor
+
+
 #load dataset
 def loadDataset(filename):
     res = []
@@ -29,9 +33,6 @@ def loadRegDataset(filename):
         fltLine = list(map(float,curLine))
         dataMat.append(fltLine)
     return mat(dataMat)
-
-
-
 
 if __name__ == '__main__':
 
@@ -59,16 +60,34 @@ if __name__ == '__main__':
     myTestMat = loadRegDataset('./dataset/ex2test.txt')
     cart.prune(tree,myTestMat)
     print(tree)'''
-
+    
+    
     classifier = ID3(max_depth=10,max_leafs=10,epsilon =0.001)
     dataset,labels = loadDataset('./dataset/loads.txt')
-    classifier.fit(dataset[:,0:-1],dataset[:,-1],labels.tolist()[0])
+    classifier.set_feature_labels(labels.tolist()[0])
+    classifier.fit(dataset[:,0:-1],dataset[:,-1])
+
 
     '''
     classifier = C45(max_depth=10,max_leafs=10,epsilon =0.001)
     dataset,labels = loadDataset('./dataset/loads.txt')
-    classifier.fit(dataset[:,0:-1],dataset[:,-1],labels.tolist()[0])
+    classifier.set_feature_labels(labels.tolist()[0])
+    classifier.fit(dataset[:,0:-1],dataset[:,-1])
+
+
+    
+    from sklearn.datasets import load_iris
+    from sklearn import tree
+
+    iris = load_iris()  # 加载Iris数据集
+    clf = tree.DecisionTreeClassifier()
+    clf = clf.fit(iris.data, iris.target)
+    res = clf.predict(iris.data)
+    from sklearn.tree import plot_tree
+    plot_tree(clf)
+    print(res)
     '''
+
 
 
 
