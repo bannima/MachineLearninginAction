@@ -9,8 +9,7 @@ Version: 0.1
 """
 
 from cart import CART
-from tree import ID3Tree
-from tree import ID3,C45
+from tree import ID3,C45,CARTClassifier
 from numpy import *
 from sklearn.tree import DecisionTreeClassifier,DecisionTreeRegressor
 from sklearn.ensemble import GradientBoostingClassifier,GradientBoostingRegressor
@@ -61,12 +60,18 @@ if __name__ == '__main__':
     cart.prune(tree,myTestMat)
     print(tree)'''
     
-    
-    classifier = ID3(max_depth=10,max_leafs=10,epsilon =0.001)
-    dataset,labels = loadDataset('./dataset/loads.txt')
-    classifier.set_feature_labels(labels.tolist()[0])
-    classifier.fit(dataset[:,0:-1],dataset[:,-1])
 
+    '''id3 = ID3(max_depth=100, max_leafs=100, epsilon = 0.001)
+    dataset,labels = loadDataset('./dataset/loads.txt')
+    id3.set_feature_labels(labels.tolist()[0])
+    id3.fit(dataset[:, 0:-1], dataset[:, -1])
+    '''
+
+
+    from sklearn.datasets import load_iris
+    iris = load_iris()
+    cartclassifier = CARTClassifier(max_depth=100)
+    cartclassifier.fit(mat(iris.data),mat(iris.target).T)
 
     '''
     classifier = C45(max_depth=10,max_leafs=10,epsilon =0.001)
@@ -75,18 +80,21 @@ if __name__ == '__main__':
     classifier.fit(dataset[:,0:-1],dataset[:,-1])
 
 
-    
+    '''
     from sklearn.datasets import load_iris
     from sklearn import tree
 
     iris = load_iris()  # 加载Iris数据集
     clf = tree.DecisionTreeClassifier()
     clf = clf.fit(iris.data, iris.target)
+
     res = clf.predict(iris.data)
     from sklearn.tree import plot_tree
     plot_tree(clf)
     print(res)
-    '''
+    import graphviz
+
+
 
 
 

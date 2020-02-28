@@ -8,7 +8,7 @@ Date: 2020/2/22 8:51 PM
 Version: 0.1
 """
 
-from decision_tree.tree import CART
+from decision_tree._tree import CART
 import numpy as np
 from numpy import eye
 
