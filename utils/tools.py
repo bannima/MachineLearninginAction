@@ -9,6 +9,7 @@ Version: 0.1
 """
 from numpy import *
 from math import log
+from .enum import SYMBOL
 
 def calc_entropy(labels):
     """calculate the shannon entropy of a given dataset labels
@@ -68,7 +69,7 @@ def calc_conditional_gini(dataset, labels, feat_ind,feat_val):
 
     """
     m, _ = shape(dataset);conditional_gini = 0.0
-    for symbol in ['lt','nlt']:
+    for symbol in [SYMBOL.LT,SYMBOL.NLT]:
         filtered_dataset, filtered_labels = filter_cont_feat_data(dataset, labels, feat_ind, feat_val,symbol)
         conditional_gini += float(shape(filtered_dataset)[0]) / m * \
                                calc_gini(filtered_labels)
@@ -90,7 +91,26 @@ def calc_gini(labels):
         gini -= math.pow(labels[labels == label].T.shape[0] / float(labels.shape[0]),2)
     return gini
 
+def calc_conditional_mse(dataset, labels, feat_ind,feat_val):
+    """calculate the conditional mean square error according to given feature index and feat_val
 
+    Parameters
+    ----------
+    dataset: array_like, shape = (n_samples,n_features)
+
+
+    feat_ind: the specific feature index, int
+
+    Returns
+    -------
+    corresponding conditional entropy of the given feature
+
+    """
+    m, _ = shape(dataset);conditional_mse = 0.0
+    for symbol in [SYMBOL.LT,SYMBOL.NLT]:
+        _, filtered_labels = filter_cont_feat_data(dataset, labels, feat_ind, feat_val,symbol)
+        conditional_mse += var(filtered_labels.T.tolist()[0])
+    return conditional_mse
 
 def filter_cate_feat_data( dataset, labels, feat_ind, feat_val):
     """
@@ -144,8 +164,8 @@ def filter_cont_feat_data(dataset,labels,feat_ind,feat_val,symbol):
     corresponding filtered labels,array_like
 
     """
-    assert symbol in ['lt','nlt']
-    if symbol=='lt':
+    assert symbol in [SYMBOL.LT,SYMBOL.NLT]
+    if symbol==SYMBOL.LT:
         filter_index= nonzero(dataset[:,feat_ind]<feat_val)[0]
     else:
         filter_index = nonzero(dataset[:,feat_ind]>=feat_val)[0]

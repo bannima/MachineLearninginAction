@@ -8,8 +8,7 @@ Date: 2020/2/10 6:46 PM
 Version: 0.1
 """
 
-from cart import CART
-from tree import ID3,C45,CARTClassifier
+from tree import ID3,CARTClassifier,CARTRegressor
 from numpy import *
 from sklearn.tree import DecisionTreeClassifier,DecisionTreeRegressor
 from sklearn.ensemble import GradientBoostingClassifier,GradientBoostingRegressor
@@ -58,29 +57,37 @@ if __name__ == '__main__':
     tree = cart.createTree(myMat)
     myTestMat = loadRegDataset('./dataset/ex2test.txt')
     cart.prune(tree,myTestMat)
-    print(tree)'''
-    
+    print(tree)
+    '''
 
-    '''id3 = ID3(max_depth=100, max_leafs=100, epsilon = 0.001)
+    id3 = ID3(max_depth=100, max_leafs=100, epsilon = 0.00001)
     dataset,labels = loadDataset('./dataset/loads.txt')
     id3.set_feature_labels(labels.tolist()[0])
     id3.fit(dataset[:, 0:-1], dataset[:, -1])
-    '''
+    print(id3.predict(dataset[:,0:-1]))
+    print(dataset[:,-1])
+    print("----------")
 
 
     from sklearn.datasets import load_iris
     iris = load_iris()
-    cartclassifier = CARTClassifier(max_depth=100)
-    cartclassifier.fit(mat(iris.data),mat(iris.target).T)
 
-    '''
+    cartclassifier = CARTClassifier(max_depth=100)
+    cartclassifier.fit(mat(iris.data), mat(iris.target).T)
+
+    cartregressor = CARTRegressor(max_depth=10)
+    cartregressor.fit(mat(iris.data),mat(iris.target).T)
+
+    print(cartregressor.predict(mat(iris.data)))
+    print(iris.target)
+
+
+    '''    
     classifier = C45(max_depth=10,max_leafs=10,epsilon =0.001)
     dataset,labels = loadDataset('./dataset/loads.txt')
     classifier.set_feature_labels(labels.tolist()[0])
     classifier.fit(dataset[:,0:-1],dataset[:,-1])
-
-
-    '''
+    
     from sklearn.datasets import load_iris
     from sklearn import tree
 
@@ -92,8 +99,7 @@ if __name__ == '__main__':
     from sklearn.tree import plot_tree
     plot_tree(clf)
     print(res)
-    import graphviz
-
+    '''
 
 
 

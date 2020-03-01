@@ -11,7 +11,7 @@ Version: 0.1
 
 class TestTree(object):
     def test_calc_shannon_entropy(self):
-        pass
+        assert True
 
 
 

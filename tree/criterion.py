@@ -11,8 +11,7 @@ from abc import ABCMeta
 from math import log
 from numpy import *
 from abc import abstractmethod
-from utils.tools import calc_entropy,calc_conditional_entropy,calc_gini,calc_conditional_gini
-
+from utils.tools import calc_entropy,calc_conditional_entropy,calc_conditional_mse,calc_conditional_gini
 
 class Criterion(metaclass=ABCMeta):
 
@@ -47,12 +46,12 @@ class Criterion(metaclass=ABCMeta):
         pass
 
 class ClassificationCriterion(Criterion):
-    _criterion_type = "classification"
+    _criterion_type_ = "classification"
     def __init__(self):
         super(ClassificationCriterion,self).__init__()
 
 class RegressionCriterion(Criterion):
-    _criterion_type = "regression"
+    _criterion_type_ = "regression"
 
     def __init__(self):
         super(RegressionCriterion,self).__init__()
@@ -113,9 +112,7 @@ class MSE(RegressionCriterion):
         -------
         float, mean square error
         """
-        pass
-
-
+        return 1-calc_conditional_mse(dataset,labels,feat_ind,feat_val)
 
 _CRITERION= {'entropy':EntropyGain,'gini':Gini,'mse':MSE}
 

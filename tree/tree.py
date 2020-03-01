@@ -10,11 +10,12 @@ Version: 0.1
 
 from numpy import *
 from utils.base import BaseModel
-from math import log
 from abc import ABCMeta,abstractmethod
-from criterion import _CRITERION
+from criterion import _CRITERION,Criterion
 from utils.tools import filter_cate_feat_data
 from utils.tools import  filter_cont_feat_data
+from utils.enum import SYMBOL
+from copy import copy
 
 class BaseDecisionTree(BaseModel, metaclass=ABCMeta):
     """Base Decision Tree
@@ -22,12 +23,18 @@ class BaseDecisionTree(BaseModel, metaclass=ABCMeta):
        Warning: This class should not be used directly.
        Use derived classes instead.
     """
-    def __init__(self,max_depth,max_leafs,min_sample_splits,epsilon,impurity):
+    def __init__(self,max_depth,max_leafs,min_sample_splits,epsilon,is_classification,impurity):
         self.max_depth = max_depth
         self.max_leafs = max_leafs
         self.min_sample_splits = min_sample_splits
         self.epsilon = epsilon
+        if impurity not in _CRITERION:
+            raise ValueError("impurity {} is not in selected criterion type {}".format(impurity,_CRITERION.keys()))
         self.criterion = _CRITERION[impurity]()
+        if (getattr(self.criterion, "_criterion_type_", None)=="classification") != is_classification:
+            raise ValueError("tree type does not matches the criterion type ")
+        self.is_classification = is_classification
+        self.tree = None
         super(BaseDecisionTree,self).__init__()
 
     @abstractmethod
@@ -86,28 +93,28 @@ class BaseDecisionTree(BaseModel, metaclass=ABCMeta):
         the unpruned tree stored in dict
 
         """
-        n_samples,_ = shape(dataset)
-        num_labels,most_label,max_count = self._check_labels(labels)
+        n_samples,n_features = shape(dataset)
+        num_labels,leaf_label = self._check_labels(labels)
 
         # depth limitation and min splits limitation
         if current_depth + 1 >= self.max_depth or n_samples <= self.min_sample_splits:
-            return most_label
+            return leaf_label
 
         #labels are the same kind, return the specific label
         if num_labels==1:
-            return most_label
+            return leaf_label
 
         #empty feature set or all the same feature combination, return the most occured label
-        feat_nums,single_feat_comb = self._check_features(dataset)
-        if feat_nums==0 or single_feat_comb:
-            return most_label
+        single_feat_comb = self._check_features(dataset)
+        if n_features==0 or single_feat_comb:
+            return leaf_label
 
         #choose the best feature
         best_feat, maximum_criterion = self._choose_best_feat(dataset,labels)
 
         #criterion is less than epsilon, return most occuerd label
         if maximum_criterion<self.epsilon:
-            return most_label
+            return leaf_label
 
         #build branch
         return {best_feat:self._build_branch(dataset,labels,best_feat,current_depth+1)}
@@ -127,11 +134,12 @@ class BaseDecisionTree(BaseModel, metaclass=ABCMeta):
         is single feature cmbination, boolean
 
         """
-        return shape(dataset)[1], False not in (dataset==dataset[0])
+        return  False not in (dataset==dataset[0])
 
     def _check_labels(self,labels):
         """
-        check the dataset label kinds, and most occured label and max count
+        check the dataset label kinds, and return the most occured label(classification) or mean value(regression)
+        as the leaf labels.
 
         Parameters
         ----------
@@ -141,28 +149,93 @@ class BaseDecisionTree(BaseModel, metaclass=ABCMeta):
         -------
         the label kinds, int
 
-        most counted label,int
-
-        corresponding max count ,int
+        most counted label or mean value, int or float
 
         """
+
         label_count = {}
         label_list = set(labels.T.tolist()[0])
         for label in label_list:
             label_count[label] = labels[labels==label].T.shape[0]
-        (most_label,max_count) = sorted(label_count.items(),key=lambda asv:asv[1],reverse=True)[0]
+        (freq_label,max_count) = sorted(label_count.items(),key=lambda asv:asv[1],reverse=True)[0]
+        if self.is_classification:
+            return len(label_list),freq_label
+        else:
+            return len(label_list),mean(labels.T.tolist()[0])
 
-        return len(set(labels.T.tolist()[0])),most_label,max_count
 
     def set_feature_labels(self,feat_labels):
+        """
+        set the feature label meanings
+
+        Parameters
+        ----------
+        feat_labels: array_like, len = n_features
+
+        Returns
+        -------
+        None
+
+        """
         self.feat_labels = feat_labels
 
     def fit(self,X,y):
-        tree = self._build_tree(X, y,0)
-        print(tree)
+        self.tree = self._build_tree(X, y,0)
+        print(self.tree)
+
+        #prune strategy
 
     def predict(self,X):
-        pass
+        """
+        predict the given test dataset
+
+        Parameters
+        ----------
+        X: array_like, shape = (n_samples,n_features)
+
+        Returns
+        -------
+        predicted labels according to tree, shape=(n_samples,1)
+
+        """
+        if self.tree is None:
+            raise RuntimeError("ERROR: the tree has not been trained yet.")
+        return [self._pred_sample(sample,copy(self.tree)) for sample in array(X)]
+
+    def _pred_sample(self,sample,tree):
+        """
+        predict the single sample using recursive method
+
+        Warning, this method should be implemented in classification and regression tree separately
+
+        Parameters
+        ----------
+        sample: array_like, shape = (1,n_features)
+
+        Returns
+        -------
+        predicted labels according to tree
+
+        """
+        #lead node
+        if type(tree).__name__ != 'dict':
+            return tree
+
+        root = list(tree.keys())[0]
+
+        #regression
+        if type(root).__name__=='tuple':
+            feat_ind,feat_val = root
+            if sample[feat_ind]<feat_val:
+                return self._pred_sample(sample,tree[root][SYMBOL.LT])
+            else:
+                return self._pred_sample(sample,tree[root][SYMBOL.NLT])
+
+        #classification
+        else:
+            feat_ind = root;feat_val= sample[feat_ind]
+            return self._pred_sample(sample,tree[feat_ind][feat_val])
+
 
     '''
     @abstractmethod
@@ -171,12 +244,13 @@ class BaseDecisionTree(BaseModel, metaclass=ABCMeta):
     '''
 
 class ID3(BaseDecisionTree):
-    def __init__(self,max_depth=100,max_leafs=1000,min_sample_splits=10,epsilon=e-4,impurity='entropy'):
+    def __init__(self,max_depth=100,max_leafs=1000,min_sample_splits=2,epsilon=e-4,is_classification=True,impurity='entropy'):
         super(ID3,self).__init__(
             max_depth=max_depth,
             max_leafs=max_leafs,
             min_sample_splits=min_sample_splits,
             epsilon=epsilon,
+            is_classification=is_classification,
             impurity=impurity
             )
 
@@ -205,22 +279,15 @@ class ID3(BaseDecisionTree):
             tree[feat_val]=self._build_tree(filtered_dataset, filtered_labels,current_depth+1)
         return tree
 
-
-
-class C45(BaseDecisionTree):
-    def __init__(self,max_depth,max_leafs,epsilon=0.001):
-        super(C45,self).__init__(
-            max_depth=max_depth,
-            max_leafs=max_leafs,
-            epsilon=epsilon)
-
 class CARTClassifier(BaseDecisionTree):
-    def __init__(self, max_depth=100, max_leafs=1000, min_sample_splits=10, epsilon=e - 4, impurity='gini'):
+
+    def __init__(self, max_depth=100, max_leafs=1000, min_sample_splits=10, epsilon=e - 4,is_classification=True,impurity='gini'):
         super(CARTClassifier, self).__init__(
             max_depth=max_depth,
             max_leafs=max_leafs,
             min_sample_splits=min_sample_splits,
             epsilon=epsilon,
+            is_classification=is_classification,
             impurity=impurity
         )
 
@@ -245,11 +312,47 @@ class CARTClassifier(BaseDecisionTree):
         feature value and the right otherwise.
         """
         (best_ind,feat_val) = best_feat;tree = {}
-        for symbol in ['lt','nlt']:
+        for symbol in [SYMBOL.LT,SYMBOL.NLT]:
             filtered_dataset,filtered_labels = filter_cont_feat_data(dataset,labels,best_ind,feat_val,symbol)
             tree[symbol]=self._build_tree(filtered_dataset,filtered_labels,current_depth+1)
         return tree
 
 
+class CARTRegressor(BaseDecisionTree):
+    def __init__(self, max_depth=100, max_leafs=1000, min_sample_splits=10, epsilon=e - 4,is_classification=False,impurity='mse'):
+        super(CARTRegressor, self).__init__(
+            max_depth=max_depth,
+            max_leafs=max_leafs,
+            min_sample_splits=min_sample_splits,
+            epsilon=epsilon,
+            is_classification=is_classification,
+            impurity=impurity
+        )
+
+    def _choose_best_feat(self,dataset,labels):
+        """choose the best feature according to criterion
+
+        Note that, in this implementaion CARTClassifier only accept continuous features,
+        which means that the selected features may be reused in the branch tree.
+        """
+        _,n = shape(dataset);maximum_criterion= -inf;best_feat = (-1,inf)
+        for feat_ind in range(n):
+            for feat_val in sort(list(set(dataset[:,feat_ind].T.tolist()[0])))[1:]:
+                if self.criterion.criterion(dataset,labels,feat_ind,feat_val)>maximum_criterion:
+                    maximum_criterion = self.criterion.criterion(dataset,labels,feat_ind,feat_val)
+                    best_feat = (feat_ind,feat_val)
+        return best_feat,maximum_criterion
+
+    def _build_branch(self,dataset,labels,best_feat,current_depth):
+        """build branch tree based on the selected best feature index and value
+
+        Note that the tree will be binary , while left branch means less than the current
+        feature value and the right otherwise.
+        """
+        (best_ind,feat_val) = best_feat;tree = {}
+        for symbol in [SYMBOL.LT,SYMBOL.NLT]:
+            filtered_dataset,filtered_labels = filter_cont_feat_data(dataset,labels,best_ind,feat_val,symbol)
+            tree[symbol]=self._build_tree(filtered_dataset,filtered_labels,current_depth+1)
+        return tree
 
 
