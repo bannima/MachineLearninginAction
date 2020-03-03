@@ -10,14 +10,16 @@ Version: 0.1
 from abc import ABCMeta
 from abc import abstractmethod
 
+
 class BaseModel(metaclass=ABCMeta):
     """Base class for all classifiers
 
         Warning: This class should not be used directly.
         Use derived classes instead.
     """
+
     @abstractmethod
-    def fit(self,X,y):
+    def fit(self, X, y):
         """Given train data X and labels y,and feature labels,  fit the classifier
 
         Parameters
@@ -36,7 +38,7 @@ class BaseModel(metaclass=ABCMeta):
         raise NotImplementedError()
 
     @abstractmethod
-    def predict(self,X):
+    def predict(self, X):
         """Given train data X and labels y, fit the classifier
 
         Parameters

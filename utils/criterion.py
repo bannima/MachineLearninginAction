@@ -8,15 +8,19 @@ Date: 2020/2/27 9:12 PM
 Version: 0.1
 """
 from abc import ABCMeta
-from math import log
-from numpy import *
 from abc import abstractmethod
-from utils.tools import calc_entropy,calc_conditional_entropy,calc_conditional_mse,calc_conditional_gini
+
+from utils.tools import calc_entropy, calc_conditional_entropy, calc_conditional_mse, calc_conditional_gini
+
 
 class Criterion(metaclass=ABCMeta):
+    '''
+    feature selection criterion class for all kinds for tree.
+
+    '''
 
     @abstractmethod
-    def criterion(self,dataset,labels,feat_ind,feat_val):
+    def __call__(self, dataset, labels, feat_ind, feat_val):
         """different feature selection criterion for different trees
 
         for example:
@@ -28,7 +32,7 @@ class Criterion(metaclass=ABCMeta):
 
         gini for CART classification tree
 
-        mean square error,MSE, for CARE regression tree
+        mean square error,MSE, for CARET regression tree
 
         Parameters
         ----------
@@ -43,26 +47,28 @@ class Criterion(metaclass=ABCMeta):
         information gain, float
 
         """
-        pass
 
-class ClassificationCriterion(Criterion):
+
+class ClassificationCriterion(Criterion, metaclass=ABCMeta):
     _criterion_type_ = "classification"
-    def __init__(self):
-        super(ClassificationCriterion,self).__init__()
 
-class RegressionCriterion(Criterion):
+    def __init__(self):
+        super(ClassificationCriterion, self).__init__()
+
+
+class RegressionCriterion(Criterion, metaclass=ABCMeta):
     _criterion_type_ = "regression"
 
     def __init__(self):
-        super(RegressionCriterion,self).__init__()
+        super(RegressionCriterion, self).__init__()
 
 
 class Gini(ClassificationCriterion):
 
     def __init__(self):
-        super(Gini,self).__init__()
+        super(Gini, self).__init__()
 
-    def criterion(self,dataset,labels,feat_ind,feat_val):
+    def __call__(self, dataset, labels, feat_ind, feat_val):
         """calculate the gini of the specific feature on given dataset
 
         Parameters
@@ -74,15 +80,15 @@ class Gini(ClassificationCriterion):
         float, information gain
         """
 
-        return 1-calc_conditional_gini(dataset, labels, feat_ind,feat_val)
+        return 1 - calc_conditional_gini(dataset, labels, feat_ind, feat_val)
 
 
 class EntropyGain(ClassificationCriterion):
 
     def __init__(self):
-        super(EntropyGain,self).__init__()
+        super(EntropyGain, self).__init__()
 
-    def criterion(self,dataset,labels,feat_ind,feat_val=None):
+    def __call__(self, dataset, labels, feat_ind, feat_val=None):
         """calculate the information gain of the specific feature on given dataset
 
         Parameters
@@ -93,15 +99,15 @@ class EntropyGain(ClassificationCriterion):
         -------
         float, information gain
         """
-        return calc_entropy(labels) - calc_conditional_entropy(dataset, labels, feat_ind,feat_val)
+        return calc_entropy(labels) - calc_conditional_entropy(dataset, labels, feat_ind, feat_val)
 
 
 class MSE(RegressionCriterion):
 
     def __init__(self):
-        super(MSE,self).__init__()
+        super(MSE, self).__init__()
 
-    def criterion(self,dataset,labels,feat_ind,feat_val):
+    def __call__(self, dataset, labels, feat_ind, feat_val):
         """calculate the mean square error of the specific feature on given dataset
 
         Parameters
@@ -112,7 +118,11 @@ class MSE(RegressionCriterion):
         -------
         float, mean square error
         """
-        return 1-calc_conditional_mse(dataset,labels,feat_ind,feat_val)
+        return 1 - calc_conditional_mse(dataset, labels, feat_ind, feat_val)
 
-_CRITERION= {'entropy':EntropyGain,'gini':Gini,'mse':MSE}
 
+CRITERION = {
+    'entropy': EntropyGain,
+    'gini': Gini,
+    'mse': MSE
+}

@@ -8,8 +8,8 @@ Date: 2020/2/27 9:57 PM
 Version: 0.1
 """
 from numpy import *
-from math import log
 from .enum import SYMBOL
+
 
 def calc_entropy(labels):
     """calculate the shannon entropy of a given dataset labels
@@ -22,13 +22,15 @@ def calc_entropy(labels):
     -------
     float, shannon entropy
     """
-    shannon_entropy = 0.0;label_list = set(labels.T.tolist()[0])
+    shannon_entropy = 0.0
+    label_list = set(labels.T.tolist()[0])
     for label in label_list:
         p = labels[labels == label].T.shape[0] / float(labels.shape[0])
-        shannon_entropy -= p * log(p, 2)
+        shannon_entropy -= p * math.log(p, 2)
     return shannon_entropy
 
-def calc_conditional_entropy(dataset, labels, feat_ind,feat_val):
+
+def calc_conditional_entropy(dataset, labels, feat_ind, feat_val):
     """calculate the emperical conditional entropy according to given feature index and feat_val
 
     Parameters
@@ -53,7 +55,7 @@ def calc_conditional_entropy(dataset, labels, feat_ind,feat_val):
     return conditional_entropy
 
 
-def calc_conditional_gini(dataset, labels, feat_ind,feat_val):
+def calc_conditional_gini(dataset, labels, feat_ind, feat_val):
     """calculate the emperical conditional gini according to given feature index and feat_val
 
     Parameters
@@ -68,12 +70,14 @@ def calc_conditional_gini(dataset, labels, feat_ind,feat_val):
     corresponding conditional entropy of the given feature
 
     """
-    m, _ = shape(dataset);conditional_gini = 0.0
-    for symbol in [SYMBOL.LT,SYMBOL.NLT]:
-        filtered_dataset, filtered_labels = filter_cont_feat_data(dataset, labels, feat_ind, feat_val,symbol)
+    m, _ = shape(dataset);
+    conditional_gini = 0.0
+    for symbol in [SYMBOL.LT, SYMBOL.NLT]:
+        filtered_dataset, filtered_labels = filter_cont_feat_data(dataset, labels, feat_ind, feat_val, symbol)
         conditional_gini += float(shape(filtered_dataset)[0]) / m * \
-                               calc_gini(filtered_labels)
+                            calc_gini(filtered_labels)
     return conditional_gini
+
 
 def calc_gini(labels):
     """calculate the gini of a given dataset labels
@@ -86,12 +90,14 @@ def calc_gini(labels):
     -------
     float, gini
     """
-    label_list = set(labels.T.tolist()[0]);gini=1
+    label_list = set(labels.T.tolist()[0]);
+    gini = 1
     for label in label_list:
-        gini -= math.pow(labels[labels == label].T.shape[0] / float(labels.shape[0]),2)
+        gini -= math.pow(labels[labels == label].T.shape[0] / float(labels.shape[0]), 2)
     return gini
 
-def calc_conditional_mse(dataset, labels, feat_ind,feat_val):
+
+def calc_conditional_mse(dataset, labels, feat_ind, feat_val):
     """calculate the conditional mean square error according to given feature index and feat_val
 
     Parameters
@@ -106,13 +112,15 @@ def calc_conditional_mse(dataset, labels, feat_ind,feat_val):
     corresponding conditional entropy of the given feature
 
     """
-    m, _ = shape(dataset);conditional_mse = 0.0
-    for symbol in [SYMBOL.LT,SYMBOL.NLT]:
-        _, filtered_labels = filter_cont_feat_data(dataset, labels, feat_ind, feat_val,symbol)
+    m, _ = shape(dataset);
+    conditional_mse = 0.0
+    for symbol in [SYMBOL.LT, SYMBOL.NLT]:
+        _, filtered_labels = filter_cont_feat_data(dataset, labels, feat_ind, feat_val, symbol)
         conditional_mse += var(filtered_labels.T.tolist()[0])
     return conditional_mse
 
-def filter_cate_feat_data( dataset, labels, feat_ind, feat_val):
+
+def filter_cate_feat_data(dataset, labels, feat_ind, feat_val):
     """
     return the filtered dataset according to the feature index and feature value
     Note that it will delete the given feature because categorical feature will
@@ -135,10 +143,11 @@ def filter_cate_feat_data( dataset, labels, feat_ind, feat_val):
     corresponding filtered labels,array_like
 
     """
-    filter_index = nonzero(dataset[:,feat_ind]==feat_val)[0]
-    return delete(dataset[filter_index],[feat_ind],axis=1),labels[filter_index]
+    filter_index = nonzero(dataset[:, feat_ind] == feat_val)[0]
+    return delete(dataset[filter_index], [feat_ind], axis=1), labels[filter_index]
 
-def filter_cont_feat_data(dataset,labels,feat_ind,feat_val,symbol):
+
+def filter_cont_feat_data(dataset, labels, feat_ind, feat_val, symbol):
     """
     filter the dataset by continus feature index and value
     Note that it's binary tree with left branch less than the feature value,
@@ -164,10 +173,9 @@ def filter_cont_feat_data(dataset,labels,feat_ind,feat_val,symbol):
     corresponding filtered labels,array_like
 
     """
-    assert symbol in [SYMBOL.LT,SYMBOL.NLT]
-    if symbol==SYMBOL.LT:
-        filter_index= nonzero(dataset[:,feat_ind]<feat_val)[0]
+    assert symbol in [SYMBOL.LT, SYMBOL.NLT]
+    if symbol == SYMBOL.LT:
+        filter_index = nonzero(dataset[:, feat_ind] < feat_val)[0]
     else:
-        filter_index = nonzero(dataset[:,feat_ind]>=feat_val)[0]
-    return dataset[filter_index],labels[filter_index]
-
+        filter_index = nonzero(dataset[:, feat_ind] >= feat_val)[0]
+    return dataset[filter_index], labels[filter_index]
