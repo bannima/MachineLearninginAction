@@ -24,17 +24,28 @@
 
 分类与回归树，基于二叉树，可分类也可回归。
 
-##4. AdaBoost
+##4. Ensemble
+4.1 Adaboost
 
 boosting家族中具有代表性的方法一种，基于前向加法模型。
 
-##5. Random Forest
+4.2 Random Forest
 
 bagging家族中典型代表方法。
 
-##6. GBDT
+4.3 GBDT
 
 梯度提升树。
+
+4.4 XGBoost
+
+##5 LR
+
+##6 SVM
+
+##7 Naive Bayes
+
+##8 EM
 
 
 ##参考资料

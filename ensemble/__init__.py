@@ -8,7 +8,9 @@ Date: 2020/3/1 4:51 PM
 Version: 0.1
 """
 from .gradient_boosting import GBRegressor
+from .gradient_boosting import GBClassifier
 
 __all__ = [
-    'GBRegressor'
+    'GBRegressor',
+    'GBClassifier'
 ]

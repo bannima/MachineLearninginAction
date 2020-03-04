@@ -11,17 +11,23 @@ from ensemble import GBRegressor
 from sklearn.datasets import load_iris
 from numpy import *
 from utils import accuracy_score,mean_square_error
-
+from ensemble import GBClassifier
 iris = load_iris()
 
 
-class Test_GBRegressor(object):
-    def test_gbrt(self):
-        gbdt = GBRegressor()
-        gbdt.fit(mat(iris.data),mat(iris.target))
-        preds = gbdt.predict(mat(iris.data))
+class Test_GBDT(object):
+    def test_gbregressor(self):
+        gbregressor = GBRegressor()
+        gbregressor.fit(mat(iris.data),mat(iris.target))
+        preds = gbregressor.predict(mat(iris.data))
         assert mean_square_error(preds,iris.target)<5e-2
 
+
+    def test_gbclassifier(self):
+        gbclassifier = GBClassifier()
+        gbclassifier.fit(mat(iris.data),mat(iris.target))
+        preds = gbclassifier.predict(mat(iris.data))
+        assert accuracy_score(preds,iris.target)>0.95
 
 
 
