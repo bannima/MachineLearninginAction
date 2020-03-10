@@ -7,10 +7,10 @@ Author: Barry Chow
 Date: 2020/3/1 4:51 PM
 Version: 0.1
 """
-from .gradient_boosting import GBRegressor
-from .gradient_boosting import GBClassifier
+from .gradient_boosting import GradientBoostingRegressor
+from .gradient_boosting import GradientBoostingClassifier
 
 __all__ = [
-    'GBRegressor',
-    'GBClassifier'
+    'GradientBoostingRegressor',
+    'GradientBoostingClassifier'
 ]

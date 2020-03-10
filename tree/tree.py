@@ -9,7 +9,7 @@ Version: 0.1
 """
 
 from abc import ABCMeta, abstractmethod
-from utils.criterion import CRITERION
+from utils import CRITERION
 from numpy import *
 
 from base import BaseModel

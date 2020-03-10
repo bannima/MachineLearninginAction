@@ -10,10 +10,13 @@ Version: 0.1
 from .loss import LOSS_FUNCTIONS
 from .evaluator import accuracy_score,mean_square_error
 from .preprocessing import one_hot
+from .criterion import CRITERION
+from .function import sign
 
 __all__ = [
     'LOSS_FUNCTIONS',
     'accuracy_score',
     'mean_square_error',
-    'one_hot'
+    'one_hot',
+    'CRITERION'
 ]

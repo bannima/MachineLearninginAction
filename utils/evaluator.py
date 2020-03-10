@@ -7,7 +7,6 @@ Author: Barry Chow
 Date: 2020/3/3 6:40 PM
 Version: 0.1
 """
-from sklearn.metrics import accuracy_score
 from numpy import array,mean
 
 def accuracy_score(preds,labels):

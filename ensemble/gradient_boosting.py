@@ -54,13 +54,13 @@ class GradientBoostingModel(BaseModel,metaclass=ABCMeta):
         assert 0<self.learning_rate<1
 
 
-class GBRegressor(GradientBoostingModel):
+class GradientBoostingRegressor(GradientBoostingModel):
     '''
         Gradient Boosting Regressor model
     '''
 
     def __init__(self, n_estimators=100, loss='mse', learning_rate = 1e-2,max_depth=10, max_leafs=10, min_sample_splits=10, epsilon=1e-4, impurity='mse'):
-        super(GBRegressor,self).__init__(
+        super(GradientBoostingRegressor, self).__init__(
             n_estimators,
             loss,
             learning_rate,
@@ -90,14 +90,14 @@ class GBRegressor(GradientBoostingModel):
         return predictions
 
 
-class GBClassifier(GradientBoostingModel):
+class GradientBoostingClassifier(GradientBoostingModel):
     '''
         Gradient Boosting Classifier model
     '''
 
     def __init__(self, n_estimators=100, loss='mse', learning_rate=1e-2, max_depth=10, max_leafs=10,
                  min_sample_splits=10, epsilon=1e-4, impurity='mse'):
-        super(GBClassifier, self).__init__(
+        super(GradientBoostingClassifier, self).__init__(
             n_estimators,
             loss,
             learning_rate,
@@ -117,14 +117,14 @@ class GBClassifier(GradientBoostingModel):
         y_prob = one_hot(y.tolist()[0])
         n_samples,n_class = shape(y_prob)
         for index in range(n_class):
-            gbregressor_ = GBRegressor(self.n_estimators,
-                                       self.loss,
-                                       self.learning_rate,
-                                       self.max_depth,
-                                       self.max_leafs,
-                                       self.min_sample_splits,
-                                       self.epsilon,
-                                       self.impurity)
+            gbregressor_ = GradientBoostingRegressor(self.n_estimators,
+                                                     self.loss,
+                                                     self.learning_rate,
+                                                     self.max_depth,
+                                                     self.max_leafs,
+                                                     self.min_sample_splits,
+                                                     self.epsilon,
+                                                     self.impurity)
             gbregressor_.fit(X,y_prob[:,index])
             self.gbregressors.append(gbregressor_)
 
