@@ -11,8 +11,6 @@ from abc import ABCMeta, abstractmethod
 import numpy as np
 from numpy import *
 
-
-
 class BaseLoss(metaclass=ABCMeta):
     '''
     abstract loss function class

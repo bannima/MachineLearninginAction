@@ -12,11 +12,15 @@ from .evaluator import accuracy_score,mean_square_error
 from .preprocessing import one_hot
 from .criterion import CRITERION
 from .function import sign
+from .kernel import KERNEL,Kernel
 
 __all__ = [
     'LOSS_FUNCTIONS',
     'accuracy_score',
     'mean_square_error',
     'one_hot',
-    'CRITERION'
+    'CRITERION',
+    'KERNEL',
+    'Kernel',
+    'sign'
 ]

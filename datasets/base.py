@@ -9,7 +9,9 @@ Version: 0.1
 """
 from numpy import *
 import os
-from sklearn.datasets import load_iris
+
+
+
 
 def load_loans():
     '''
@@ -30,3 +32,15 @@ def load_loans():
     feat_labels = res[0]
     return mat(dataset)[:,0:-1], mat(dataset)[:,-1].T.tolist()[0],feat_labels
 
+def load_svm_data():
+    '''
+
+    :return:
+    '''
+    res = []
+    base_dir = os.path.dirname(__file__) + '/data'
+    pathfile = os.path.join(base_dir, 'svmTestSet.txt')
+    for line in open(pathfile, 'r'):
+        line = line.strip(' \n').split('\t')
+        res.append([float(v) for v in line])
+    return mat(res)[:, 0:-1], mat(res)[:, -1]
