@@ -21,7 +21,7 @@ class Node(object):
 
     '''
 
-    def __init__(self, value, label, left, right, depth, parent):
+    def __init__(self, value, label, left, right, parent, depth):
         self.value = value
         self.label = label
         self.left = left
@@ -87,13 +87,18 @@ class Tree(metaclass=ABCMeta):
 
 class KDTree(Tree):
 
-    def __init__(self, distance):
+    def __init__(self, distance='euclidean'):
         super(KDTree, self).__init__(distance)
 
     def build(self, X, y):
+        '''
+        build K-Dimension Tree
+        '''
         data = concatenate((X, y), axis=1)
+        root = self._build(data, 0, None, 0)
+        return root
 
-    def _build(self, data, dimension, depth, parent):
+    def _build(self, data, dimension, parent, depth):
         '''
         build tree for given dataset
 
@@ -115,8 +120,26 @@ class KDTree(Tree):
 
         n_samples, n_dimension = shape(data)
 
-        if len(n_samples) <= 1:
-            return Node(data[0][:-1], data[0][-1], None, None, parent, depth + 1)
+        if n_samples == 0:
+            return None
+
+        if n_samples == 1:
+            return Node(data[0][:-1], data[0][-1], None, None, parent, depth )
+
+        # sort the given dimension and get the middle number
+        data = data[data[:, dimension].argsort()]
+        middle_index = n_samples // 2
+
+        # current node
+        node = Node(data[middle_index][:-1], data[middle_index][-1], None, None, parent, depth)
+
+        # left and right child
+        next_dimension = (depth + 1) % n_dimension
+
+        node.left = self._build(data[:middle_index], next_dimension, node, depth + 1, )
+        node.right = self._build(data[middle_index + 1:], next_dimension, node, depth + 1)
+
+        return node
 
     def search_k_nearest_neighbor(self, k, point):
         pass

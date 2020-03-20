@@ -8,7 +8,10 @@ Date: 2020/3/18 7:51 PM
 Version: 0.1
 """
 from .knn import KNN
+from .tree import KDTree, BallTree
 
 __all__ = [
-    'KNN'
+    'KNN',
+    'KDTree',
+    'BallTree'
 ]
