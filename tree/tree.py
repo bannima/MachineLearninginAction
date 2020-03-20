@@ -9,10 +9,11 @@ Version: 0.1
 """
 
 from abc import ABCMeta, abstractmethod
-from utils import CRITERION
+
 from numpy import *
 
 from base import BaseModel
+from utils import CRITERION
 from utils.enum import SYMBOL
 from utils.tools import filter_cate_feat_data
 from utils.tools import filter_cont_feat_data
@@ -42,25 +43,23 @@ class BaseDecisionTree(BaseModel, metaclass=ABCMeta):
 
         super(BaseDecisionTree, self).__init__()
 
-
     def _check_params(self):
         '''
         check the validity of input params
 
         '''
-        assert isinstance(self.max_depth,int)
-        assert self.max_depth>0
+        assert isinstance(self.max_depth, int)
+        assert self.max_depth > 0
 
-        assert isinstance(self.max_leafs,int)
-        assert self.max_leafs>0
+        assert isinstance(self.max_leafs, int)
+        assert self.max_leafs > 0
 
-        assert isinstance(self.min_sample_splits,int)
-        assert self.min_sample_splits>0
+        assert isinstance(self.min_sample_splits, int)
+        assert self.min_sample_splits > 0
 
-        assert self.epsilon>0
+        assert self.epsilon > 0
 
         assert type(self.is_classification).__name__ == 'bool'
-
 
     @abstractmethod
     def _choose_best_feat(self, dataset, labels):
@@ -77,7 +76,6 @@ class BaseDecisionTree(BaseModel, metaclass=ABCMeta):
         the corresponding feature index of maximum criterion and maximum criterion
 
         """
-
 
     @abstractmethod
     def _build_branch(self, dataset, labels, best_feat, current_depth):
@@ -102,7 +100,6 @@ class BaseDecisionTree(BaseModel, metaclass=ABCMeta):
         the branch tree
 
         """
-
 
     def _build_tree(self, dataset, labels, current_depth):
         """build decision tree based on criterion
@@ -204,11 +201,11 @@ class BaseDecisionTree(BaseModel, metaclass=ABCMeta):
         self.feat_labels = feat_labels
 
     def fit(self, X, y):
-        #transform the label array(length: nsamples) to  matrix(shape: n_sample,1)
+        # transform the label array(length: nsamples) to  matrix(shape: n_sample,1)
         y = mat(y).T
 
         self.tree = self._build_tree(X, y, 0)
-        #print(self.tree)
+        # print(self.tree)
 
         # prune strategy
 
@@ -272,8 +269,7 @@ class BaseDecisionTree(BaseModel, metaclass=ABCMeta):
 
 
 class ID3(BaseDecisionTree):
-
-    _SUPPORT_CRITERION = ['gini','entropy']
+    _SUPPORT_CRITERION = ['gini', 'entropy']
 
     def __init__(self, max_depth=100, max_leafs=1000, min_sample_splits=2, epsilon=1e-4, is_classification=True,
                  impurity='entropy'):
@@ -287,7 +283,6 @@ class ID3(BaseDecisionTree):
             impurity=impurity
         )
 
-
     def _check_params(self):
         '''
         customize derived class should check it's own params
@@ -299,11 +294,10 @@ class ID3(BaseDecisionTree):
 
         '''
 
-        #customize param_checking function of derived class
-        assert self.is_classification==True
+        # customize param_checking function of derived class
+        assert self.is_classification == True
 
-        super(ID3,self)._check_params()
-
+        super(ID3, self)._check_params()
 
     def _choose_best_feat(self, dataset, labels):
         """choose the best feature according to criterion

@@ -9,6 +9,7 @@ Version: 0.1
 """
 from numpy import *
 
+
 def one_hot(X):
     '''
     transform input array to one hot vector
@@ -25,5 +26,3 @@ def one_hot(X):
     values = array(X)
     n_values = max(values) + 1
     return eye(n_values)[values]
-
-

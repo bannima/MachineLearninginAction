@@ -8,6 +8,7 @@ Date: 2020/2/27 9:57 PM
 Version: 0.1
 """
 from numpy import *
+
 from .enum import SYMBOL
 
 

@@ -8,14 +8,16 @@ Date: 2020/2/22 7:37 PM
 Version: 0.1
 """
 from abc import ABCMeta, abstractmethod
-import numpy as np
+
 from numpy import *
+
 
 class BaseLoss(metaclass=ABCMeta):
     '''
     abstract loss function class
 
     '''
+
     def __init__(self):
         pass
 
@@ -36,9 +38,8 @@ class BaseLoss(metaclass=ABCMeta):
 
         '''
 
-
     @abstractmethod
-    def negative_gradient(self,preds,labels):
+    def negative_gradient(self, preds, labels):
         ''''
         calculate the negative gredient
 
@@ -67,10 +68,10 @@ class MeanSquareLoss(BaseLoss):
         super(MeanSquareLoss, self).__init__()
 
     def __call__(self, preds, labels):
-        return (np.array(labels)-np.array(preds))**2
+        return (np.array(labels) - np.array(preds)) ** 2
 
-    def negative_gradient(self,preds,labels):
-        return 2*(np.array(labels)-np.array(preds))
+    def negative_gradient(self, preds, labels):
+        return 2 * (np.array(labels) - np.array(preds))
 
 
 class ExponetialLoss(BaseLoss):
@@ -85,13 +86,13 @@ class ExponetialLoss(BaseLoss):
         super(ExponetialLoss, self).__init__()
 
     def __call__(self, preds, labels):
-        return np.exp(-1*np.array(labels)*np.array(preds))
+        return np.exp(-1 * np.array(labels) * np.array(preds))
 
-    def negative_gradient(self,preds,labels):
-        return -1*np.array(labels)*np.exp(-1*np.array(labels)*np.array(preds))
+    def negative_gradient(self, preds, labels):
+        return -1 * np.array(labels) * np.exp(-1 * np.array(labels) * np.array(preds))
 
 
 LOSS_FUNCTIONS = {
-    'mse':MeanSquareLoss,
-    'el':ExponetialLoss
+    'mse': MeanSquareLoss,
+    'el': ExponetialLoss
 }

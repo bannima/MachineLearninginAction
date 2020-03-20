@@ -9,11 +9,6 @@ Version: 0.1
 """
 
 from numpy import *
-from tree import ID3, CARTClassifier, CARTRegressor
-from sklearn.datasets import load_iris
-
-
-
 
 
 def loadRegDataset(filename):

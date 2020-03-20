@@ -149,12 +149,9 @@ class BinarySVM(BaseModel):
         '''
         return array([self._predict_sample(xi) for xi in X])
 
-    def _predict_sample(self,sample):
+    def _predict_sample(self, sample):
         '''
         predict sample instance
         '''
-        K_sample = array([self.kernel(mat(sample),xi) for xi in self.X])
-        return sign(float(mat(K_sample)*multiply(self.y,self.alphas))+self.b)
-
-
-
+        K_sample = array([self.kernel(mat(sample), xi) for xi in self.X])
+        return sign(float(mat(K_sample) * multiply(self.y, self.alphas)) + self.b)

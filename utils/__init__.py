@@ -7,12 +7,13 @@ Author: Barry Chow
 Date: 2020/2/22 7:37 PM
 Version: 0.1
 """
-from .loss import LOSS_FUNCTIONS
-from .evaluator import accuracy_score,mean_square_error
-from .preprocessing import one_hot
 from .criterion import CRITERION
+from .evaluator import accuracy_score, mean_square_error
 from .function import sign
-from .kernel import KERNEL,Kernel
+from .kernel import KERNEL, Kernel
+from .loss import LOSS_FUNCTIONS
+from .preprocessing import one_hot
+from .distance import DISTANCE
 
 __all__ = [
     'LOSS_FUNCTIONS',
@@ -22,5 +23,6 @@ __all__ = [
     'CRITERION',
     'KERNEL',
     'Kernel',
-    'sign'
+    'sign',
+    'DISTANCE'
 ]

@@ -7,12 +7,14 @@ Author: Barry Chow
 Date: 2020/3/17 7:45 PM
 Version: 0.1
 """
-from abc import ABCMeta,abstractmethod
+from abc import ABCMeta, abstractmethod
+
 
 class Kernel(metaclass=ABCMeta):
     '''
     abstract class for kernel functions
     '''
+
     def __init__(self):
         pass
 
@@ -37,11 +39,11 @@ class Kernel(metaclass=ABCMeta):
 
 class LinearKernel(Kernel):
 
-    def __init__(self,b=0):
+    def __init__(self, b=0):
         self.b = b
-        super(LinearKernel,self).__init__()
+        super(LinearKernel, self).__init__()
 
-    def __call__(self, x,y):
+    def __call__(self, x, y):
         '''
         given vector x and y ,return the linear kernel product
 
@@ -56,9 +58,9 @@ class LinearKernel(Kernel):
         the defined kernel product: float
 
         '''
-        return float(x*y.T)+self.b
+        return float(x * y.T) + self.b
+
 
 KERNEL = {
-    'linear':LinearKernel
+    'linear': LinearKernel
 }
-

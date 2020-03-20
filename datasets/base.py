@@ -7,10 +7,9 @@ Author: Barry Chow
 Date: 2020/3/3 7:01 PM
 Version: 0.1
 """
-from numpy import *
 import os
 
-
+from numpy import *
 
 
 def load_loans():
@@ -23,14 +22,15 @@ def load_loans():
     dataset,labels,feature_labels
     '''
     res = []
-    base_dir = os.path.dirname(__file__)+'/data'
-    pathfile = os.path.join(base_dir,'loads.txt')
+    base_dir = os.path.dirname(__file__) + '/data'
+    pathfile = os.path.join(base_dir, 'loads.txt')
     for line in open(pathfile, 'r'):
         line = line.strip(' \n').split('\t')
         res.append(line)
     dataset = res[1:]
     feat_labels = res[0]
-    return mat(dataset)[:,0:-1], mat(dataset)[:,-1].T.tolist()[0],feat_labels
+    return mat(dataset)[:, 0:-1], mat(dataset)[:, -1].T.tolist()[0], feat_labels
+
 
 def load_svm_data():
     '''
