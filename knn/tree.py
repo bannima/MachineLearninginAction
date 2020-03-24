@@ -221,77 +221,6 @@ class KDTree(Tree):
                 if abs(cur_node.parent.value[axis]-point[axis])<-1*nsmallest(1,self.heap)[0][0]:
                     self._nearest_k_point(cur_node.brother, point)
 
-
-
-        '''min_dist = inf;min_node =None
-        cur_node = self._search_nearest_leafnode(self.root,point)
-        path = [(self.root,cur_node)]
-        while path:
-            root_node,cur_node = path.pop(0)
-            dist = self.distance(cur_node.value,point)
-            if dist<min_dist:
-                min_node,min_dist = cur_node,dist
-            #
-            while cur_node is not root_node:
-                dist = self.distance(cur_node.value,point)
-                if dist<min_dist:
-                    min_dist,min_node = dist,cur_node
-                #has brother and may exist nearer point
-                if cur_node.brother:
-                    axis = cur_node.parent.axis
-                    if abs(cur_node.parent.value[axis]-point[axis])<min_dist:
-                        _cur_node = self._search_nearest_leafnode(cur_node.parent,point)
-                        path.append((cur_node.brother,_cur_node))
-                cur_node = cur_node.parent
-        return min_node
-        '''
-
-
-
-
-        '''
-        
-        if not root:
-            return
-        # while cur node is not the root of kd tree, search
-        cur_node = self._search_nearest_leafnode(root,point)
-
-        #add cur node to path
-        self.path.append(cur_node)
-        dist = self.distance(cur_node.value.tolist(),point)
-        if dist<self.min_dist:
-            self.min_dist = dist
-            self.min_node = cur_node
-        #has brother, and not searched
-        if (not cur_node.brother) and (cur_node.brother not in self.path):
-            #may exist nearer point in brother's hyperrectangle
-            if cur_node.parent.value[cur_node.parent.axis]<point[cur_node.parent.axis]:
-                self._search_nearest_point(cur_node.brother,point)
-        else:
-            self._search_nearest_point(cur_node.parent,point)
-        '''
-
-
-        '''while True:
-            cur_node = self._search_nearest_leafnode(root, point)
-            if not cur_node.parent:
-                return
-
-            dist = self.distance(cur_node.value,point)
-            if dist <self.min_dist:
-                self.min_dist = dist
-                self.min_node = cur_node
-
-            # current node has brother
-            if not cur_node.brother:
-                # may exist nearer point in brother, search brother's hyperrectangle
-                if abs(cur_node.parent.value[cur_node.parent.axis]-point[cur_node.parent.axis])<self.min_dist:
-                    root = cur_node.brother
-            else:
-                root = cur_node.parent
-        '''
-
-
     def _nearest_leafnode(self, root, point):
         '''
         given starting root node and point,
@@ -317,23 +246,6 @@ class KDTree(Tree):
             path.append(cur_node)
         return path
 
-
-class BallTree(Tree):
-    '''
-    implementation of ball tree
-    '''
-
-    def __init__(self, distance):
-        super(BallTree, self).__init__(distance)
-
-    def build(self, X, y):
-        pass
-
-    def k_nearest_neighbor(self, k, point):
-        pass
-
-
 TREE = {
-    'kdtree': KDTree,
-    'balltree': BallTree
+    'kdtree': KDTree
 }

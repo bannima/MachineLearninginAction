@@ -40,7 +40,7 @@ class KNN(BaseModel):
     def _predict_sample(self, point):
         '''
         predict single point
-        
+
         '''
         k_nearest_dist, k_nearest_nodes = self.tree.k_nearest_neighbor(self.k, point)
         labels = [node.label for node in k_nearest_nodes]
