@@ -9,6 +9,7 @@ Version: 0.1
 """
 from base import BaseModel
 from .tree import TREE
+from collections import Counter
 
 
 class KNN(BaseModel):
@@ -29,4 +30,19 @@ class KNN(BaseModel):
         self.tree.build(X,y)
 
     def predict(self, X):
-        pass
+        '''
+        predict the points in X
+        using average voting strategy
+
+        '''
+        return [self._predict_sample(point) for point in X]
+
+    def _predict_sample(self, point):
+        '''
+        predict single point
+        
+        '''
+        k_nearest_dist, k_nearest_nodes = self.tree.k_nearest_neighbor(self.k, point)
+        labels = [node.label for node in k_nearest_nodes]
+        return Counter(labels).most_common(1)[0][0]
+
