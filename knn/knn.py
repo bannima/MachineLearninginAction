@@ -26,7 +26,7 @@ class KNN(BaseModel):
         '''
         train the specic k-dimension tree
         '''
-        pass
+        self.tree.build(X,y)
 
     def predict(self, X):
         pass

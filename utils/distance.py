@@ -8,8 +8,7 @@ Date: 2020/3/18 8:50 PM
 Version: 0.1
 """
 from abc import ABCMeta,abstractmethod
-from numpy import array,sqrt
-from math import pow
+from numpy import array,sqrt,power
 
 class Distance(metaclass=ABCMeta):
     '''
@@ -42,7 +41,7 @@ class EuclideanDistance():
 
         '''
         assert len(x)==len(y)
-        return sqrt(sum(pow(array(x)-array(y),2)))
+        return sqrt(sum(power(array(x)-array(y),2)))
 
 
 
