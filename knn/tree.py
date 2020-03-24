@@ -174,7 +174,7 @@ class KDTree(Tree):
         if not self.root:
             raise RuntimeError("tree should be build first")
 
-        self.heap = [(-10000+i,None) for i in range(k)]
+        self.heap = [(-inf,None) for _ in range(k)]
         self._nearest_k_point(self.root, point)
         k_nearest = [heappop(self.heap) for _ in range(k)]
         k_nearest.reverse()

@@ -1,7 +1,13 @@
 ###KNN工程实现
 
+
 ###FAQ
 1.KD树的查询实现？如何在kd树中查找k个最近领点？
+
+第一个问题，详见实现tree.py的_nearest_k_point函数。
+总体而言是深度优先遍历树加上迭代方法实现。
+
+第二个问题，通过一个包含k个元素的堆来实现，具体使用heapq，注意Node元素此时需要继承__lt__函数来避免出现错误。
 
 2.kd树和球树区别
 
@@ -27,8 +33,33 @@
 或右子树的情况，若当前父节点的维度需要分到空的分支时，这里可以用存在的分支来近似代替不存在的分支，因为计算上
 都要进行回溯。
 
+5.如何回溯查找kd树？
+
+kd树的回溯查找直观上比较简单，但需要处理好一些细节问题，如如何避免兄弟节点重复查询的死循环，如果当前节点只有
+一个分支节点，而要比较的节点恰巧往另一不存在的分支如何处理？
+
+先回答第二个问题，具体做法很简单，就是只有单个节点的情况，直接分到那个分支，因为回溯的过程中都会进行查找，不影响结果。
+而且kd树的左右子树空间都在回溯的过程中会被搜索到。
+
+再回答第一个问题，需要保存好路径，具体在每个节点的循环迭代中，先从根节点到叶子结点的匹配过程保存好，如果回退到跟节点
+时候，需要判断若当前节点是跟节点，就不要进行兄弟节点的查找，避免回退到之前查询过的兄弟节点，具体实现时，只需要进行
+判断（具体见tree.py的_nearest_k_point函数的if cur_node.brother and (len(path)!=0)判断条件），len(path)==0
+表示当前节点为此次迭代的根节点，跳过进行兄弟节点的判断，避免重复计算。
+
+6.heapq对于Node的要求。
+
+在python3中需要实现__lt__函数，避免出现错误unorderable types: Node() < Node()，
+可参考：
+https://stackoverflow.com/questions/34005451/typeerror-unorderable-types-dict-dict-in-heapq
+https://www.jb51.net/article/85716.htm
+
+
 
 ###参考资料
 1.An intoductory tutorial on kd-trees, CMU, Andrew W. Moore,1991
 2.《统计学习方法》李航 第一版
 3. https://github.com/tushushu/imylu/blob/master/imylu/utils/kd_tree.py
+4.https://stackoverflow.com/questions/34005451/typeerror-unorderable-types-dict-dict-in-heapq
+5.https://www.jb51.net/article/85716.htm
+6.https://docs.python.org/zh-cn/3.6/library/heapq.html
+7.https://blog.csdn.net/Yan456jie/article/details/52074141
