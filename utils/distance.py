@@ -7,25 +7,28 @@ Author: Barry Chow
 Date: 2020/3/18 8:50 PM
 Version: 0.1
 """
-from abc import ABCMeta,abstractmethod
-from numpy import array,sqrt,power
+from abc import ABCMeta
+
+from numpy import array, sqrt, power
+
 
 class Distance(metaclass=ABCMeta):
     '''
     abstract class for distance
     '''
+
     def __init__(self):
         pass
 
-    def __call__(self,x,y):
+    def __call__(self, x, y):
         raise NotImplementedError()
 
 
 class EuclideanDistance():
     def __init__(self):
-        super(EuclideanDistance,self).__init__()
+        super(EuclideanDistance, self).__init__()
 
-    def __call__(self,x,y):
+    def __call__(self, x, y):
         '''
         given vector x and y ,return the euclidean distance
 
@@ -40,11 +43,10 @@ class EuclideanDistance():
         the defined euclidean distance
 
         '''
-        assert len(x)==len(y)
-        return sqrt(sum(power(array(x)-array(y),2)))
-
+        assert len(x) == len(y)
+        return sqrt(sum(power(array(x) - array(y), 2)))
 
 
 DISTANCE = {
-    'euclidean':EuclideanDistance
+    'euclidean': EuclideanDistance
 }

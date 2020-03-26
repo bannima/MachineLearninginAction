@@ -1,15 +1,16 @@
 #!/usr/bin/env python 
 # -*- coding:utf-8 -*-
 """
-FileName: knn.py
+FileName: neighbors.py
 Description:
 Author: Barry Chow
 Date: 2020/3/18 7:52 PM
 Version: 0.1
 """
+from collections import Counter
+
 from base import BaseModel
 from .tree import TREE
-from collections import Counter
 
 
 class KNN(BaseModel):
@@ -27,7 +28,7 @@ class KNN(BaseModel):
         '''
         train the specic k-dimension tree
         '''
-        self.tree.build(X,y)
+        self.tree.build(X, y)
 
     def predict(self, X):
         '''
@@ -45,4 +46,3 @@ class KNN(BaseModel):
         k_nearest_dist, k_nearest_nodes = self.tree.k_nearest_neighbor(self.k, point)
         labels = [node.label for node in k_nearest_nodes]
         return Counter(labels).most_common(1)[0][0]
-

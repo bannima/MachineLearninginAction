@@ -63,3 +63,4 @@ https://www.jb51.net/article/85716.htm
 5.https://www.jb51.net/article/85716.htm
 6.https://docs.python.org/zh-cn/3.6/library/heapq.html
 7.https://blog.csdn.net/Yan456jie/article/details/52074141
+8.https://leileiluoluo.com/posts/kdtree-algorithm-and-implementation.html

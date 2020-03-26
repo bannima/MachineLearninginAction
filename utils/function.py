@@ -7,7 +7,10 @@ Author: Barry Chow
 Date: 2020/3/9 8:16 PM
 Version: 0.1
 """
+from numpy import exp
 
+def sign(x,positive=1,middle=0,negative=-1):
+    return positive if x >= middle else negative
 
-def sign(x):
-    return 1 if x >= 0 else -1
+def sigmod(x):
+    return float(exp(x))/(1+exp(x))

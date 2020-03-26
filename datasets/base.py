@@ -7,7 +7,6 @@ Author: Barry Chow
 Date: 2020/3/3 7:01 PM
 Version: 0.1
 """
-import os
 
 from numpy import *
 

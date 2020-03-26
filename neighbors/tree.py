@@ -9,12 +9,12 @@ Version: 0.1
 """
 
 from abc import ABCMeta, abstractmethod
+from heapq import heappop, nsmallest, heappush
 
 from numpy import concatenate, shape, inf
 
 from utils import DISTANCE
 
-from heapq import heappushpop,heappop,nlargest,heapify,nsmallest,heappush
 
 class Node(object):
     '''
@@ -40,9 +40,9 @@ class Node(object):
         else:
             return self.parent.left
 
-    #for heap operation
+    # for heap operation
     def __lt__(self, other):
-        return self.value[0]>other.value[0]
+        return self.value[0] > other.value[0]
 
 
 class Tree(metaclass=ABCMeta):
@@ -110,7 +110,7 @@ class KDTree(Tree):
         '''
         build K-Dimension Tree
         '''
-        self.n_samples,self.n_dimension = shape(X)
+        self.n_samples, self.n_dimension = shape(X)
         data = concatenate((X, y), axis=1)
         self.root = self._build_tree(data, 0, None, 0)
         return self.root
@@ -169,19 +169,18 @@ class KDTree(Tree):
         search the k nearest neighbor in kd tree
         '''
 
-        assert isinstance(k,int)
-        assert 1<=k<=self.n_samples
+        assert isinstance(k, int)
+        assert 1 <= k <= self.n_samples
         if not self.root:
             raise RuntimeError("tree should be build first")
 
-        self.heap = [(-inf,None) for _ in range(k)]
+        self.heap = [(-inf, None) for _ in range(k)]
         self._nearest_k_point(self.root, point)
         k_nearest = [heappop(self.heap) for _ in range(k)]
         k_nearest.reverse()
-        k_nearest_dist = [value[0]*-1 for value in k_nearest]
-        k_nearest_nodes  = [value[-1] for value in k_nearest]
-        return k_nearest_dist,k_nearest_nodes
-
+        k_nearest_dist = [value[0] * -1 for value in k_nearest]
+        k_nearest_nodes = [value[-1] for value in k_nearest]
+        return k_nearest_dist, k_nearest_nodes
 
     def _nearest_k_point(self, root, point):
 
@@ -204,21 +203,21 @@ class KDTree(Tree):
         path = self._nearest_leafnode(root, point)
         while path:
             cur_node = path.pop()
-            dist = self.distance(cur_node.value,point)
+            dist = self.distance(cur_node.value, point)
             '''
             if dist<min_dist:
                 min_dist = dist
                 min_node = cur_node
             '''
-            if nsmallest(1,self.heap)[0][0]<-1*dist:
-                #heappushpop(self.heap,(-1*dist,cur_node))
-                heappush(self.heap,(-1*dist,cur_node))
+            if nsmallest(1, self.heap)[0][0] < -1 * dist:
+                # heappushpop(self.heap,(-1*dist,cur_node))
+                heappush(self.heap, (-1 * dist, cur_node))
                 heappop(self.heap)
 
-            #skip the root node case, to avoid left and right brother cycle.
-            if cur_node.brother and (len(path)!=0):
+            # skip the root node case, to avoid left and right brother cycle.
+            if cur_node.brother and (len(path) != 0):
                 axis = cur_node.parent.axis
-                if abs(cur_node.parent.value[axis]-point[axis])<-1*nsmallest(1,self.heap)[0][0]:
+                if abs(cur_node.parent.value[axis] - point[axis]) < -1 * nsmallest(1, self.heap)[0][0]:
                     self._nearest_k_point(cur_node.brother, point)
 
     def _nearest_leafnode(self, root, point):
@@ -231,7 +230,7 @@ class KDTree(Tree):
         '''
         path = []
         cur_node = root
-        #not include the root node
+        # not include the root node
         path.append(cur_node)
         # get the nearest leaf node in the tree
         while cur_node.left or cur_node.right:
@@ -245,6 +244,7 @@ class KDTree(Tree):
                 cur_node = cur_node.right
             path.append(cur_node)
         return path
+
 
 TREE = {
     'kdtree': KDTree
