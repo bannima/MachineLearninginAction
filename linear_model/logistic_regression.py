@@ -7,14 +7,15 @@ Author: Barry Chow
 Date: 2020/3/25 4:59 PM
 Version: 0.1
 """
-from numpy import shape, zeros, inf, array,log,exp
+from numpy import shape, zeros, inf, array,log,exp, mean
 from base import BaseModel
 from utils import sigmod,sign
 from utils import accuracy_score
 from random import random
 
 class LogisticRegression(BaseModel):
-    def __init__(self, learning_rate=1e-2, max_iter=1000, threshold=1e-2):
+
+    def __init__(self, learning_rate=1e-5, max_iter=1000, threshold=1e-1):
         """
 
         Parameters
@@ -54,7 +55,9 @@ class LogisticRegression(BaseModel):
         assert n_samples == len(y)
 
         # init parameters
-        self.w = [random() for _ in range(n_features)]
+        # warning, the LR is very sensitive to initial parameters,
+        # in other words, the initial parameters should be as smaller as possible
+        self.w = [(1e-3)*random() for _ in range(n_features)]
         self.b = 0
 
         self._fit(X,y)
@@ -76,15 +79,19 @@ class LogisticRegression(BaseModel):
             #update parameters w and b
             preds = array([self._predict_sample(sample) for sample in X ])
 
-            delta_w = [self.learning_rate*sum((array(y)-preds)*X[:,j]) for j in range(shape(X)[1])]
+            #use mean not sum to avoid very big data
+            #delta_w = [self.learning_rate*sum((array(y)-preds)*X[:,j]) for j in range(shape(X)[1])]
+            delta_w = [self.learning_rate*mean((array(y)-preds)*X[:,j]) for j in range(shape(X)[1])]
+
+
             self.w+=array(delta_w)
 
             delta_b = self.learning_rate*sum(array(y)-preds)
             self.b+=delta_b
 
-            loss = self._calc_loss(X,y)
+            loss = self._calc_mean_loss(X, y)
             # stop iteration when loss gain is less than threshold
-            if (total_loss - loss) < self.threshold:
+            if abs(total_loss - loss) < self.threshold:
                 return
             else:
                 total_loss = loss
@@ -94,7 +101,7 @@ class LogisticRegression(BaseModel):
             print(accuracy_score(preds,y))
 
 
-    def _calc_loss(self,X,y):
+    def _calc_mean_loss(self, X, y):
         '''
         calc total loss
 
@@ -109,11 +116,13 @@ class LogisticRegression(BaseModel):
         loss: float, total loss
 
         '''
-        loss = 0
+        loss = []
         for ind,sample in enumerate(X):
             w_xi = sum(sample * self.w) + self.b
-            loss += y[ind]*w_xi-log(1+exp(w_xi))
-        return loss
+            loss.append(y[ind]*w_xi-log(1+exp(w_xi)))
+
+        #for calculaction convenience, use positive loss
+        return -1*mean(loss)
 
     def _predict_sample(self, sample):
         """

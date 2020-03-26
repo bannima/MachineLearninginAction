@@ -8,7 +8,9 @@ Date: 2020/3/9 6:22 PM
 Version: 0.1
 """
 from .perceptron import Perceptron
+from .logistic_regression import LogisticRegression
 
 __all__ = [
-    'Perceptron'
+    'Perceptron',
+    'LogisticRegression'
 ]
