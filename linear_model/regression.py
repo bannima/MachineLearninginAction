@@ -1,7 +1,7 @@
 #!/usr/bin/env python 
 # -*- coding:utf-8 -*-
 """
-FileName: logistic_regression.py
+FileName: regression.py
 Description: logistic regression
 Author: Barry Chow
 Date: 2020/3/25 4:59 PM
@@ -12,8 +12,11 @@ from base import BaseModel
 from utils import sigmod,sign
 from utils import accuracy_score
 from random import random
+from abc import abstractmethod,ABCMeta
 
-class LogisticRegression(BaseModel):
+
+
+class Regression(BaseModel):
 
     def __init__(self, learning_rate=1e-5, max_iter=1000, threshold=1e-1):
         """
@@ -37,7 +40,7 @@ class LogisticRegression(BaseModel):
         assert 0 < threshold < 1
         self.threshold = threshold
 
-        super(LogisticRegression, self).__init__()
+        super(Regression, self).__init__()
 
     def fit(self, X, y):
         """
@@ -119,11 +122,23 @@ class LogisticRegression(BaseModel):
         loss = []
         for ind,sample in enumerate(X):
             w_xi = sum(sample * self.w) + self.b
-            loss.append(y[ind]*w_xi-log(1+exp(w_xi)))
+            #loss.append(y[ind]*w_xi-log(1+exp(w_xi)))
+            loss.append(self._calc_single_loss(y[ind],w_xi))
 
         #for calculaction convenience, use positive loss
         return -1*mean(loss)
 
+    @abstractmethod
+    def _calc_single_loss(self,yi,w_xi):
+        '''
+
+        Returns
+        -------
+
+        '''
+        pass
+
+    @abstractmethod
     def _predict_sample(self, sample):
         """
         predict the single sample value.
@@ -137,7 +152,128 @@ class LogisticRegression(BaseModel):
         sigmod value for given sample
 
         """
+        pass
+
+    @abstractmethod
+    def predict(self, X):
+        """
+
+        Parameters
+        ----------
+        X: array_like, input data
+
+        Returns
+        -------
+        labels for given point, 0 or 1 for negative and positive result
+
+        """
+        pass
+
+
+class LogisticRegression(Regression):
+
+    def __init__(self, learning_rate=1e-5, max_iter=1000, threshold=1e-1):
+        """
+
+        Parameters
+        ----------
+        learning_rate: float, learning rate
+
+        max_iter: int, maximum iterations
+
+        threshold: float, minimum loss gain
+
+        """
+        super(LogisticRegression, self).__init__(
+            learning_rate,
+            max_iter,
+            threshold
+        )
+
+    def _calc_single_loss(self,yi,w_xi):
+        return yi*w_xi-log(1+exp(w_xi))
+
+
+    def _predict_sample(self, sample):
+        """
+        predict the single sample value using Logistic Regression
+
+        Parameters
+        ----------
+        sample
+
+        Returns
+        -------
+        sigmod value for given sample
+
+        """
         return sigmod(sum(sample * self.w) + self.b)
+
+    def predict(self, X):
+        """
+
+        Parameters
+        ----------
+        X: array_like, input data
+
+        Returns
+        -------
+        labels for given point, 0 or 1 for negative and positive result
+
+        """
+        return [sign(self._predict_sample(sample),1,0.5,0) for sample in X]
+
+
+class LinearRegression(Regression):
+
+    def __init__(self, learning_rate=1e-5, max_iter=1000, threshold=1e-1):
+        """
+
+        Parameters
+        ----------
+        learning_rate: float, learning rate
+
+        max_iter: int, maximum iterations
+
+        threshold: float, minimum loss gain
+
+        """
+        super(LinearRegression, self).__init__(
+            learning_rate,
+            max_iter,
+            threshold
+        )
+
+    def _calc_single_loss(self,yi,w_xi):
+        '''
+
+        Parameters
+        ----------
+        yi: float, true label
+        w_xi: float, prediction using linear regression
+
+        Returns
+        -------
+        square error loss, float
+
+        '''
+        return (yi-w_xi)**2
+
+
+    def _predict_sample(self, sample):
+        """
+        predict the single sample value using Logistic Regression
+
+        Parameters
+        ----------
+        sample
+
+        Returns
+        -------
+        sigmod value for given sample
+
+        """
+        return sum(sample * self.w) + self.b
 
     def predict(self, X):
         """
