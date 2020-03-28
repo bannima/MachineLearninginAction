@@ -5,7 +5,7 @@
 具体涵盖以下方法：
 
 
-##1 linear_model
+###1 [linear_model](https://github.com/bannima/MachineLearninginAction/tree/master/linear_model)
 
 1.1 Perceptron
 
@@ -13,15 +13,15 @@
 
 1.3 Logistic Regression
 
-##2 neighbors
+###2 [neighbors](https://github.com/bannima/MachineLearninginAction/tree/master/neighbors)
 
 K Nearest Neighbor with KD Tree
 
-##3 bayes
+###3 [bayes](https://github.com/bannima/MachineLearninginAction/tree/master/bayes)
 
 朴素贝叶斯
 
-##4 tree
+###4 [tree](https://github.com/bannima/MachineLearninginAction/tree/master/tree)
 
 4.1 ID3
 
@@ -35,13 +35,15 @@ K Nearest Neighbor with KD Tree
 
 分类与回归树，基于二叉树，可分类也可回归。
 
-##5 entropy
+###5 entropy(comming soon)
+
 最大熵模型
 
-##6 svm
-支持向量机
+###6 [svm](https://github.com/bannima/MachineLearninginAction/tree/master/svm)
 
-##7 Ensemble
+Support Vector Machines using SMO
+
+###7 [ensemble](https://github.com/bannima/MachineLearninginAction/tree/master/ensemble)
 
 7.1 Adaboost
 
@@ -55,24 +57,24 @@ bagging家族中典型代表方法。
 
 梯度提升树。
 
-7.4 XGBoost
-（coming soon）
+7.4 XGBoost（coming soon）
 
-##8 em
+###8 em（coming soon）
+
 Gaussian misture model,高斯混合模型
-（coming soon）
 
-##9 hmm
+
+###9 [hmm](https://github.com/bannima/MachineLearninginAction/tree/master/_hmm)
 
 Hidden Markov Model,隐马尔可夫模型
 
 
-##10 crf
+###10 crf(comming soon)
+
 Conditional Random Field 条件随机场
-（coming soon）
 
 
-##参考资料
+###参考资料
 
 1 《统计学习方法》李航 第二版
 
