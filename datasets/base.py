@@ -9,6 +9,7 @@ Version: 0.1
 """
 
 from numpy import *
+import os
 
 
 def load_loans():

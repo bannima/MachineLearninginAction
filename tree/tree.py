@@ -322,7 +322,8 @@ class ID3(BaseDecisionTree):
         """
         best_ind = best_feat
         tree = {}
-        for feat_val in set(dataset[:, best_ind].T.tolist()[0]):
+        #for feat_val in set(dataset[:, best_ind].T.tolist()[0]):
+        for feat_val in unique(dataset[:,best_ind].T.tolist()[0]):
             filtered_dataset, filtered_labels = filter_cate_feat_data(dataset, labels, best_ind, feat_val)
             tree[feat_val] = self._build_tree(filtered_dataset, filtered_labels, current_depth + 1)
         return tree

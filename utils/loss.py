@@ -8,7 +8,6 @@ Date: 2020/2/22 7:37 PM
 Version: 0.1
 """
 from abc import ABCMeta, abstractmethod
-
 from numpy import *
 
 
@@ -68,10 +67,10 @@ class MeanSquareLoss(BaseLoss):
         super(MeanSquareLoss, self).__init__()
 
     def __call__(self, preds, labels):
-        return (np.array(labels) - np.array(preds)) ** 2
+        return (array(labels) - array(preds)) ** 2
 
     def negative_gradient(self, preds, labels):
-        return 2 * (np.array(labels) - np.array(preds))
+        return 2 * (array(labels) - array(preds))
 
 
 class ExponetialLoss(BaseLoss):
@@ -86,10 +85,10 @@ class ExponetialLoss(BaseLoss):
         super(ExponetialLoss, self).__init__()
 
     def __call__(self, preds, labels):
-        return np.exp(-1 * np.array(labels) * np.array(preds))
+        return exp(-1 * array(labels) * array(preds))
 
     def negative_gradient(self, preds, labels):
-        return -1 * np.array(labels) * np.exp(-1 * np.array(labels) * np.array(preds))
+        return -1 * array(labels) * exp(-1 * array(labels) * array(preds))
 
 
 LOSS_FUNCTIONS = {
