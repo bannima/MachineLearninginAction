@@ -64,7 +64,7 @@ bagging家族中典型代表方法。
 Gaussian misture model,高斯混合模型
 
 
-###9 [hmm](https://github.com/bannima/MachineLearninginAction/tree/master/_hmm)
+###9 [hmm](https://github.com/bannima/MachineLearninginAction/tree/master/hmm)
 
 Hidden Markov Model,隐马尔可夫模型
 
