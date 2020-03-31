@@ -11,14 +11,14 @@ from abc import ABCMeta
 
 from numpy import *
 
-from base import BaseModel
+from base import Classifier
 from tree import CARTRegressor
 from tree import CRITERION
 from utils import LOSS_FUNCTIONS
 from utils import one_hot
 
 
-class GradientBoostingModel(BaseModel, metaclass=ABCMeta):
+class GradientBoostingModel(Classifier, metaclass=ABCMeta):
     '''
     Basic Gradient Boosting Tree
 

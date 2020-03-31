@@ -67,10 +67,12 @@ class MeanSquareLoss(BaseLoss):
         super(MeanSquareLoss, self).__init__()
 
     def __call__(self, preds, labels):
-        return (array(labels) - array(preds)) ** 2
+        #return (array(labels) - array(preds)) ** 2
+        return (labels-preds)**2
 
     def negative_gradient(self, preds, labels):
-        return 2 * (array(labels) - array(preds))
+        #return 2 * (array(labels) - array(preds))
+        return 2*(labels-preds)
 
 
 class ExponetialLoss(BaseLoss):

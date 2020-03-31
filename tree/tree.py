@@ -12,14 +12,14 @@ from abc import ABCMeta, abstractmethod
 
 from numpy import *
 
-from base import BaseModel
+from base import Classifier
 from utils import CRITERION
 from utils.enum import SYMBOL
 from utils.tools import filter_cate_feat_data
 from utils.tools import filter_cont_feat_data
 
 
-class BaseDecisionTree(BaseModel, metaclass=ABCMeta):
+class BaseDecisionTree(Classifier, metaclass=ABCMeta):
     """Base Decision Tree
 
        Warning: This class should not be used directly.

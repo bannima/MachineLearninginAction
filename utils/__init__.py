@@ -13,7 +13,8 @@ from .evaluator import accuracy_score, mean_square_error
 from .function import sign,sigmod
 from .kernel import KERNEL, Kernel
 from .loss import LOSS_FUNCTIONS
-from .preprocessing import one_hot
+from .preprocessing import one_hot,split_train_test
+from .activation import ACTIVATIONS,Activation
 
 __all__ = [
     'LOSS_FUNCTIONS',
@@ -25,5 +26,7 @@ __all__ = [
     'Kernel',
     'sign',
     'sigmod',
-    'DISTANCE'
+    'DISTANCE',
+    'Activation',
+    'ACTIVATIONS'
 ]

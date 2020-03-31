@@ -11,7 +11,7 @@ from abc import ABCMeta
 from abc import abstractmethod
 
 
-class BaseModel(metaclass=ABCMeta):
+class Classifier(metaclass=ABCMeta):
     """Base class for all classifiers
 
         Warning: This class should not be used directly.

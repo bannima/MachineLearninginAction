@@ -9,10 +9,10 @@ Version: 0.1
 """
 
 from numpy import array,mat,concatenate,unique,shape,nonzero
-from base import BaseModel
+from base import Classifier
 from collections import Counter
 
-class NaiveBayes(BaseModel):
+class NaiveBayes(Classifier):
     '''
     implementation of naive bayes model
     '''

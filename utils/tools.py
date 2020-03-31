@@ -124,6 +124,7 @@ def calc_conditional_mse(dataset, labels, feat_ind, feat_val):
 def filter_cate_feat_data(dataset, labels, feat_ind, feat_val):
     """
     return the filtered dataset according to the feature index and feature value
+
     Note that it will delete the given feature because categorical feature will
     only be used at one times.
 

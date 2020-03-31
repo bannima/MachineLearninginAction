@@ -9,11 +9,11 @@ Version: 0.1
 """
 from collections import Counter
 
-from base import BaseModel
+from base import Classifier
 from .tree import TREE
 
 
-class KNN(BaseModel):
+class KNN(Classifier):
     def __init__(self, k=5, tree='kdtree', distance='euclidean'):
         assert isinstance(k, int)
         self.k = k

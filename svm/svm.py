@@ -8,13 +8,12 @@ Date: 2020/3/10 7:40 PM
 Version: 0.1
 """
 from numpy import shape, zeros, array, mat, multiply
-
-from base import BaseModel
+from base import Classifier
 from utils import KERNEL, Kernel
 from utils import sign
 
 
-class BinarySVM(BaseModel):
+class BinarySVM(Classifier):
     '''
     Support Vector Machines for Binary Classification Tasks.
 
