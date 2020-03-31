@@ -74,6 +74,12 @@ Hidden Markov Model,隐马尔可夫模型
 Conditional Random Field 条件随机场
 
 
+###11 [neural networks](https://github.com/bannima/MachineLearninginAction/tree/master/neural_networks)
+1. DNN
+
+2. CNN(coming soon)
+
+
 ###参考资料
 
 1 《统计学习方法》李航 第二版
