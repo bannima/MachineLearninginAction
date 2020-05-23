@@ -4,11 +4,11 @@
 FileName: __init__.py.py
 Description: 
 Author: Barry Chow
-Date: 2020/3/27 9:29 PM
+Date: 2020/4/6 9:30 AM
 Version: 0.1
 """
-from .dnn import DNN
+from .uniform import Uniform
 
 __all__ = [
-    'DNN'
+    'Uniform'
 ]

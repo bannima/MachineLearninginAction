@@ -45,13 +45,13 @@ def split_train_test(X, y, scale=0.7, is_random=True):
     train_x,train_y,test_x,test_y
 
     '''
-    n_samples,n_features = shape(X)
+    n_samples, n_features = shape(X)
     index = array(range(n_samples))
-    break_point = int(n_samples*scale)
+    break_point = int(n_samples * scale)
     if is_random:
         train_index = random.choice(n_samples, break_point)
-        test_index = array(list(set(index)-set(train_index)))
+        test_index = array(list(set(index) - set(train_index)))
     else:
         train_index = index[:break_point]
         test_index = index[break_point:]
-    return X[train_index],y[train_index],X[test_index],y[test_index]
+    return X[train_index], y[train_index], X[test_index], y[test_index]

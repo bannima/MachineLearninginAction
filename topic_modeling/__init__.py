@@ -9,6 +9,6 @@ Version: 0.1
 """
 from .lsa import LSA
 
-__all__  = [
+__all__ = [
     'LSA'
 ]

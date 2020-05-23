@@ -83,7 +83,7 @@ class DNN(Classifier):
         else:
             return zeros((input_dimen, output_dimen))
 
-    def forward(self, input, label):
+    def forward(self, input):
         '''
         forward pass of current network model
 
@@ -136,7 +136,7 @@ class DNN(Classifier):
             epoch_loss = 0
             for sample, label in zip(X, y):
                 # forward pass
-                neuron_values = self.forward(sample, label)
+                neuron_values = self.forward(sample)
 
                 # back error propagation
                 self.back_propagation(label, neuron_values)

@@ -7,9 +7,9 @@ Author: Barry Chow
 Date: 2020/3/9 6:22 PM
 Version: 0.1
 """
+from .maximum_entropy import MaxEntropy, FeatureFunction
 from .perceptron import Perceptron
-from .regression import LogisticRegression,LinearRegression
-from .maximum_entropy import MaxEntropy,FeatureFunction
+from .regression import LogisticRegression, LinearRegression
 
 __all__ = [
     'Perceptron',

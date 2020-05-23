@@ -7,16 +7,16 @@ Author: Barry Chow
 Date: 2020/3/25 4:59 PM
 Version: 0.1
 """
-from numpy import shape, zeros, inf, array,log,exp, mean
-from base import BaseModel
-from utils import sigmod,sign
-from utils import accuracy_score
+from abc import abstractmethod
 from random import random
-from abc import abstractmethod,ABCMeta
+
+from numpy import shape, inf, array, log, exp, mean
+
+from base import Classifier
+from utils import sigmod, sign
 
 
-
-class Regression(BaseModel):
+class Regression(Classifier):
 
     def __init__(self, learning_rate=1e-5, max_iter=1000, threshold=1e-1):
         """
@@ -60,12 +60,12 @@ class Regression(BaseModel):
         # init parameters
         # warning, the LR is very sensitive to initial parameters,
         # in other words, the initial parameters should be as smaller as possible
-        self.w = [(1e-3)*random() for _ in range(n_features)]
+        self.w = [(1e-3) * random() for _ in range(n_features)]
         self.b = 0
 
-        self._fit(X,y)
+        self._fit(X, y)
 
-    def _fit(self,X,y):
+    def _fit(self, X, y):
         """
         fit the logistic regression model.
 
@@ -79,18 +79,17 @@ class Regression(BaseModel):
         total_loss = inf
         for iter in range(self.max_iter):
 
-            #update parameters w and b
-            preds = array([self._predict_sample(sample) for sample in X ])
+            # update parameters w and b
+            preds = array([self._predict_sample(sample) for sample in X])
 
-            #use mean not sum to avoid very big data
-            #delta_w = [self.learning_rate*sum((array(y)-preds)*X[:,j]) for j in range(shape(X)[1])]
-            delta_w = [self.learning_rate*mean((array(y)-preds)*X[:,j]) for j in range(shape(X)[1])]
+            # use mean not sum to avoid very big data
+            # delta_w = [self.learning_rate*sum((array(y)-preds)*X[:,j]) for j in range(shape(X)[1])]
+            delta_w = [self.learning_rate * mean((array(y) - preds) * X[:, j]) for j in range(shape(X)[1])]
 
+            self.w += array(delta_w)
 
-            self.w+=array(delta_w)
-
-            delta_b = self.learning_rate*sum(array(y)-preds)
-            self.b+=delta_b
+            delta_b = self.learning_rate * sum(array(y) - preds)
+            self.b += delta_b
 
             loss = self._calc_mean_loss(X, y)
             # stop iteration when loss gain is less than threshold
@@ -99,10 +98,9 @@ class Regression(BaseModel):
             else:
                 total_loss = loss
 
-            #report accuracy score
+            # report accuracy score
             preds = self.predict(X)
-            print(accuracy_score(preds,y))
-
+            # print(accuracy_score(preds,y))
 
     def _calc_mean_loss(self, X, y):
         '''
@@ -120,16 +118,16 @@ class Regression(BaseModel):
 
         '''
         loss = []
-        for ind,sample in enumerate(X):
+        for ind, sample in enumerate(X):
             w_xi = sum(sample * self.w) + self.b
-            #loss.append(y[ind]*w_xi-log(1+exp(w_xi)))
-            loss.append(self._calc_single_loss(y[ind],w_xi))
+            # loss.append(y[ind]*w_xi-log(1+exp(w_xi)))
+            loss.append(self._calc_single_loss(y[ind], w_xi))
 
-        #for calculaction convenience, use positive loss
-        return -1*mean(loss)
+        # for calculaction convenience, use positive loss
+        return -1 * mean(loss)
 
     @abstractmethod
-    def _calc_single_loss(self,yi,w_xi):
+    def _calc_single_loss(self, yi, w_xi):
         '''
 
         Returns
@@ -190,9 +188,8 @@ class LogisticRegression(Regression):
             threshold
         )
 
-    def _calc_single_loss(self,yi,w_xi):
-        return yi*w_xi-log(1+exp(w_xi))
-
+    def _calc_single_loss(self, yi, w_xi):
+        return yi * w_xi - log(1 + exp(w_xi))
 
     def _predict_sample(self, sample):
         """
@@ -221,7 +218,7 @@ class LogisticRegression(Regression):
         labels for given point, 0 or 1 for negative and positive result
 
         """
-        return [sign(self._predict_sample(sample),1,0.5,0) for sample in X]
+        return [sign(self._predict_sample(sample), 1, 0.5, 0) for sample in X]
 
 
 class LinearRegression(Regression):
@@ -244,7 +241,7 @@ class LinearRegression(Regression):
             threshold
         )
 
-    def _calc_single_loss(self,yi,w_xi):
+    def _calc_single_loss(self, yi, w_xi):
         '''
 
         Parameters
@@ -257,8 +254,7 @@ class LinearRegression(Regression):
         square error loss, float
 
         '''
-        return (yi-w_xi)**2
-
+        return (yi - w_xi) ** 2
 
     def _predict_sample(self, sample):
         """
@@ -287,4 +283,4 @@ class LinearRegression(Regression):
         labels for given point, 0 or 1 for negative and positive result
 
         """
-        return [sign(self._predict_sample(sample),1,0.5,0) for sample in X]
+        return [sign(self._predict_sample(sample), 1, 0.5, 0) for sample in X]

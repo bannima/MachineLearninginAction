@@ -10,17 +10,17 @@ Version: 0.1
 import numpy as np
 from numpy import shape
 
-from base import BaseModel
+from base import Classifier
 from utils import accuracy_score
 from utils import sign
 
 
-class Perceptron(BaseModel):
+class Perceptron(Classifier):
     '''
     Implementation of Perceptron
     '''
 
-    def __init__(self, max_iterations=100, esplion=1e-3, learning_rate=0.1,threshold=0.9):
+    def __init__(self, max_iterations=100, esplion=1e-3, learning_rate=0.1, threshold=0.9):
         assert max_iterations > 0
         assert 1 > esplion > 0
         assert 0 < learning_rate <= 1
@@ -28,7 +28,7 @@ class Perceptron(BaseModel):
         self.max_iterations = max_iterations
         self.esplion = esplion
         self.learning_rate = learning_rate
-        self.threshold=threshold
+        self.threshold = threshold
 
     def fit(self, X, y):
         '''
