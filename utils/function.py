@@ -14,3 +14,9 @@ def sign(x,positive=1,middle=0,negative=-1):
 
 def sigmod(x):
     return float(exp(x))/(1+exp(x))
+
+def softmax(x):
+    if x.ndim==1:
+        return exp(x)/exp(x).sum()
+    else:
+        return exp(x)/exp(x).sum(axis=1,keepdims=True)
