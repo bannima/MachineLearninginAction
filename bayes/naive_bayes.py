@@ -8,16 +8,19 @@ Date: 2020/3/27 9:15 PM
 Version: 0.1
 """
 
-from numpy import array,mat,concatenate,unique,shape,nonzero
-from base import Classifier
 from collections import Counter
+
+from numpy import array, unique, shape, nonzero
+
+from base import Classifier
+
 
 class NaiveBayes(Classifier):
     '''
     implementation of naive bayes model
     '''
 
-    def __init__(self,smoothing=True):
+    def __init__(self, smoothing=True):
         '''
 
         Parameters
@@ -25,8 +28,8 @@ class NaiveBayes(Classifier):
         smoothing: using laplace smoothing
 
         '''
-        self.smoothing=smoothing
-        super(NaiveBayes,self).__init__()
+        self.smoothing = smoothing
+        super(NaiveBayes, self).__init__()
 
     def fit(self, X, y):
         '''
@@ -43,34 +46,34 @@ class NaiveBayes(Classifier):
         None
 
         '''
-        n_samples,n_features = shape(X)
-        assert n_samples==shape(y)[0]
+        n_samples, n_features = shape(X)
+        assert n_samples == shape(y)[0]
 
         self.cond_prob = {}
         self.label_prob = {}
 
         for label in unique(y):
 
-            self.cond_prob[label]={}
-            label_index = nonzero(y==label)
+            self.cond_prob[label] = {}
+            label_index = nonzero(y == label)
 
-            remain_data,remain_labels = X[label_index],y[label_index]
+            remain_data, remain_labels = X[label_index], y[label_index]
 
             n_remain_data = shape(remain_data)[0]
 
-            self.label_prob[label] = float(n_remain_data)/n_samples
+            self.label_prob[label] = float(n_remain_data) / n_samples
 
-            #for each feature
+            # for each feature
             for fea_ind in range(n_features):
                 if self.smoothing:
-                    counter = Counter(unique(X[:,fea_ind]))
+                    counter = Counter(unique(X[:, fea_ind]))
                 else:
                     counter = Counter()
 
-                counter += Counter(remain_data[:,fea_ind])
-                #get conditional prob
+                counter += Counter(remain_data[:, fea_ind])
+                # get conditional prob
                 for key in counter.keys():
-                    counter[key]=counter[key]/float(n_remain_data)
+                    counter[key] = counter[key] / float(n_remain_data)
                 self.cond_prob[label][fea_ind] = counter
 
     def predict(self, X):
@@ -91,10 +94,9 @@ class NaiveBayes(Classifier):
             prediction = {}
             for label in self.cond_prob.keys():
                 label_probs = self.label_prob[label]
-                for fea_ind,fea_val in enumerate(sample):
-                     label_probs *= self.cond_prob[label][fea_ind][fea_val]
+                for fea_ind, fea_val in enumerate(sample):
+                    label_probs *= self.cond_prob[label][fea_ind][fea_val]
                 prediction[label] = label_probs
-            preds.append(sorted(prediction.items(),key = lambda asv:asv[1],reverse=True)[0][0])
+            preds.append(sorted(prediction.items(), key=lambda asv: asv[1], reverse=True)[0][0])
 
         return array(preds)
-

@@ -1,14 +1,15 @@
 #!/usr/bin/env python 
 # -*- coding:utf-8 -*-
 """
-FileName: main.py
+FileName: test_hmm.py
 Description: _adaboost 算法实现，参考机器学习实战第七章
 Author: Barry Chow
 Date: 2020/2/17 3:10 PM
 Version: 0.1
 """
-from model.adaboost import AdaBoost
 from numpy import matrix
+
+from _adaboost.adaboost import AdaBoost
 
 
 def loadSimpData():
@@ -40,14 +41,14 @@ def loadHorseColicDataset(filename):
 if __name__ == '__main__':
     dataMat, classLabels = loadSimpData()
     adaboost = AdaBoost()
-    classifierArray = adaboost.adaboostTrain(dataMat, classLabels, 10)
-    predClass = adaboost.adaClassify([[5, 5], [0, 0]])
+    classifierArray = adaboost.adaboost_train(dataMat, classLabels, 10)
+    predClass = adaboost.ada_classify([[5, 5], [0, 0]])
     print(predClass)
 
     # horse colic experiment
     dataArr, labelArr = loadHorseColicDataset('./dataset/horseColicTraining2.txt')
     adaboost = AdaBoost()
-    classifierArray = adaboost.adaboostTrain(dataArr, labelArr, 10)
+    classifierArray = adaboost.adaboost_train(dataArr, labelArr, 10)
 
     testArr, testLabelArr = loadHorseColicDataset('./dataset/horseColicTest2.txt')
     errorRate = adaboost.pred(testArr, testLabelArr)

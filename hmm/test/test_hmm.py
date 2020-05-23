@@ -11,6 +11,7 @@ import numpy as np
 
 from hmm import HiddenMarkovModel
 
+
 class Test_HMM(object):
     def test_hmm(self):
         '''A = np.matrix([[0,1,0,0],
@@ -40,9 +41,9 @@ class Test_HMM(object):
         prob, path = hmm.viterbi()
 
         print("The probability for Observation States", str(O), " is ", hmm.forward_backword())
-        assert hmm.forward_backword()== 0.130218
+        assert hmm.forward_backword() == 0.130218
 
         print("The max probs for Observation States", str(O), " is ", prob, " and the hidden state path is ",
               '-'.join(['%s' % id for id in path]))
-        assert prob==0.014699999999999998
-        assert path==[3,3,3]
+        assert prob == 0.014699999999999998
+        assert path == [3, 3, 3]

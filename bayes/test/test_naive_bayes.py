@@ -7,11 +7,12 @@ Author: Barry Chow
 Date: 2020/3/27 9:15 PM
 Version: 0.1
 """
-from numpy import array, mat
+from numpy import array
+from sklearn.datasets import load_iris
 
 from bayes import NaiveBayes
 from utils import accuracy_score
-from sklearn.datasets import load_iris
+
 
 class Test_Naive_Bayes(object):
 
@@ -38,14 +39,13 @@ class Test_Naive_Bayes(object):
         nb = NaiveBayes()
         nb.fit(data, labels)
         preds = nb.predict(data)
-        assert accuracy_score(preds,labels)>0.7
+        assert accuracy_score(preds, labels) > 0.7
 
     def test_nb_using_iris(self):
         iris = load_iris()
         data = iris['data']
         target = iris['target']
         nb = NaiveBayes()
-        nb.fit(data,target)
+        nb.fit(data, target)
         preds = nb.predict(data)
-        assert accuracy_score(preds,target)>0.9
-
+        assert accuracy_score(preds, target) > 0.9

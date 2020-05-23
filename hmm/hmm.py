@@ -7,7 +7,8 @@ Author: Barry Chow
 Date: 2020/2/3 11:24 PM
 Version: 0.1
 """
-from numpy import zeros,array,argmax
+from numpy import zeros, argmax
+
 
 class HiddenMarkovModel(object):
     def __init__(self, A, B, PI, O):
@@ -86,5 +87,5 @@ class HiddenMarkovModel(object):
             max_path.append(current)
 
         max_path.reverse()
-        #return max(self.delta[:, -1]), reversed(max_path)
+        # return max(self.delta[:, -1]), reversed(max_path)
         return max(self.delta[:, -1]), max_path
