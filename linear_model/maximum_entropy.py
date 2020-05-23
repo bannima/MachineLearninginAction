@@ -180,7 +180,7 @@ class MaxEntropy(Classifier):
                     sum_w = self._sum_exp_w_on_all_y(x_point)
                     for match_feature_func_index in match_feature_func_indices:
                         dw[match_feature_func_index] -= p_x * np.exp(self._sum_exp_w_on_y(x_point, y_point)) / (
-                                    1e-7 + sum_w)
+                                1e-7 + sum_w)
 
                 # update w
                 self.w += self.eta * dw
