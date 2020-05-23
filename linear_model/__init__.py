@@ -9,9 +9,12 @@ Version: 0.1
 """
 from .perceptron import Perceptron
 from .regression import LogisticRegression,LinearRegression
+from .maximum_entropy import MaxEntropy,FeatureFunction
 
 __all__ = [
     'Perceptron',
     'LogisticRegression',
-    'LinearRegression'
+    'LinearRegression',
+    'MaxEntropy',
+    'FeatureFunction'
 ]
