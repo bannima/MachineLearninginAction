@@ -13,6 +13,8 @@
 
 1.3 Logistic Regression
 
+1.4 [Maximum Entropy Model](https://github.com/bannima/MachineLearninginAction/blob/master/linear_model/maximum_entropy.py)
+
 ###2 [neighbors](https://github.com/bannima/MachineLearninginAction/tree/master/neighbors)
 
 K Nearest Neighbor with KD Tree
@@ -69,7 +71,7 @@ Gaussian misture model,高斯混合模型
 Hidden Markov Model,隐马尔可夫模型
 
 
-###10 crf(comming soon)
+###10 CRF(comming soon)
 
 Conditional Random Field 条件随机场
 
@@ -78,6 +80,29 @@ Conditional Random Field 条件随机场
 1. DNN
 
 2. CNN(coming soon)
+
+
+###12 [MCMC](https://github.com/bannima/MachineLearninginAction/tree/master/sampling/test)
+
+1.Metropolis-Hasting
+
+2.Gibbs
+
+###13 [Topic Model](https://github.com/bannima/MachineLearninginAction/tree/master/topic_modeling)
+
+1.LSA
+
+2.PLSA
+
+3.LDA
+
+###14 Cluster(Coming soon)
+
+1.K-Means
+
+2.Hierarchical Cluster
+
+3.DBSCAN
 
 
 ###参考资料
