@@ -90,3 +90,4 @@ class TestMaxEntropy(object):
 
         y = max_entropy.predict(X_test)
         print('f1:', f1_score(Y_test, y, average='macro'))
+        assert f1_score(Y_test, y, average='macro')>0.9

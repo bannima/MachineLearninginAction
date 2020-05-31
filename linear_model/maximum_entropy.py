@@ -9,10 +9,8 @@ Version: 0.1
 """
 
 import numpy as np
-
 from base import Classifier
 from utils import softmax
-
 
 class FeatureFunction(object):
     '''
@@ -39,7 +37,7 @@ class FeatureFunction(object):
         for index in range(n_samples):
             x = X[index, :].tolist()
             for feat_index, feat_value in enumerate(x):
-                self.features.add(tuple([feat_index, feat_value, y[feat_index]]))
+                self.features.add(tuple([feat_index, feat_value, y[index]]))
 
     def get_feature_nums(self):
         '''
@@ -125,7 +123,7 @@ class MaxEntropy(Classifier):
             if self.Pxy.get(tuple(range_indices + [y[index]])) is None:
                 self.Pxy[tuple(range_indices + [y[index]])] = 1
             else:
-                self.Pxy[tuple(range_indices + [y[index]])] = 1
+                self.Pxy[tuple(range_indices + [y[index]])] += 1
 
         for key, value in self.Pxy.items():
             self.Pxy[key] = 1.0 * self.Pxy[key] / n_samples
@@ -179,8 +177,8 @@ class MaxEntropy(Classifier):
                 if p_x is not None:
                     sum_w = self._sum_exp_w_on_all_y(x_point)
                     for match_feature_func_index in match_feature_func_indices:
-                        dw[match_feature_func_index] -= p_x * np.exp(self._sum_exp_w_on_y(x_point, y_point)) / (
-                                1e-7 + sum_w)
+                        dw[match_feature_func_index] -= p_x * np.exp(self._sum_exp_w_on_y(x_point, y_point)) / \
+                                                        (1e-7 + sum_w)
 
                 # update w
                 self.w += self.eta * dw
