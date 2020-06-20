@@ -104,6 +104,13 @@ Conditional Random Field 条件随机场
 
 3.DBSCAN
 
+###15 Embedding(Coming soon)
+
+1. Word2Vec
+
+2. Glove
+
+
 
 ###参考资料
 
