@@ -7,11 +7,11 @@
 
 ###1 [linear_model](https://github.com/bannima/MachineLearninginAction/tree/master/linear_model)
 
-1.1 Perceptron
+1.1 [Perceptron](https://github.com/bannima/MachineLearninginAction/blob/master/linear_model/perceptron.py)
 
-1.2 Linear Regression
+1.2 [Linear Regression]()
 
-1.3 Logistic Regression
+1.3 [Logistic Regression](https://github.com/bannima/MachineLearninginAction/blob/master/linear_model/regression.py)
 
 1.4 [Maximum Entropy Model](https://github.com/bannima/MachineLearninginAction/blob/master/linear_model/maximum_entropy.py)
 
@@ -25,7 +25,7 @@ K Nearest Neighbor with KD Tree
 
 ###4 [tree](https://github.com/bannima/MachineLearninginAction/tree/master/tree)
 
-4.1 ID3
+4.1 [ID3](https://github.com/bannima/MachineLearninginAction/blob/master/tree/tree.py)
 
 基于信息增益作为生成决策树的准则。
 
@@ -33,11 +33,11 @@ K Nearest Neighbor with KD Tree
 
 基于信息增益比作为生成决策树的准则。
 
-4.3 CART Classification and Regression
+4.3 [CART Classification and Regression](https://github.com/bannima/MachineLearninginAction/blob/master/tree/tree.py)
 
 分类与回归树，基于二叉树，可分类也可回归。
 
-###5 entropy(comming soon)
+###5 [Maximum Entropy](https://github.com/bannima/MachineLearninginAction/blob/master/linear_model/maximum_entropy.py)
 
 最大熵模型
 
@@ -51,11 +51,11 @@ Support Vector Machines using SMO
 
 boosting家族中具有代表性的方法一种，基于前向加法模型。
 
-7.2 Random Forest
+7.2 Random Forest (coming soon)
 
 bagging家族中典型代表方法。
 
-7.3 GBDT
+7.3 [GBDT](https://github.com/bannima/MachineLearninginAction/blob/master/ensemble/gradient_boosting.py)
 
 梯度提升树。
 
@@ -114,8 +114,6 @@ Conditional Random Field 条件随机场
    
 
 2. Glove
-
-
 
 
 
