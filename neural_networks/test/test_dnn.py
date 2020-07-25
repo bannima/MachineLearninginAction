@@ -37,7 +37,7 @@ class Test_DNN(object):
 
         train_X, train_y, test_X, test_y = split_train_test(data, labels)
         # classifier = DNN(layers= [64,50,10],learning_rate=0.3,activation='sigmod',Epochs=10,threhold=0.1)
-        classifier = DNN(layers=[64, 50, 50, 10], learning_rate=0.1, activation='sigmod', Epochs=100, threhold=0.1)
+        classifier = DNN(layers=[64,50,50,10], learning_rate=0.1, activation='sigmod', Epochs=100, threhold=0.1)
 
         classifier.fit(train_X, train_y)
         preds = classifier.predict(test_X)
