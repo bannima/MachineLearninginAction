@@ -47,7 +47,7 @@ Support Vector Machines using SMO
 
 ###7 [ensemble](https://github.com/bannima/MachineLearninginAction/tree/master/ensemble)
 
-7.1 Adaboost
+7.1 [Adaboost](https://github.com/bannima/MachineLearninginAction/blob/master/_adaboost/adaboost.py)
 
 boosting家族中具有代表性的方法一种，基于前向加法模型。
 
@@ -61,9 +61,9 @@ bagging家族中典型代表方法。
 
 7.4 XGBoost（coming soon）
 
-###8 em（coming soon）
+###8 EM（coming soon）
 
-Gaussian misture model,高斯混合模型
+8.1 Gaussian misture model,高斯混合模型
 
 
 ###9 [hmm](https://github.com/bannima/MachineLearninginAction/tree/master/hmm)
@@ -77,9 +77,13 @@ Conditional Random Field 条件随机场
 
 
 ###11 [neural networks](https://github.com/bannima/MachineLearninginAction/tree/master/neural_networks)
-1. DNN
+1. [DNN](https://github.com/bannima/MachineLearninginAction/blob/master/neural_networks/dnn.py)
 
 2. CNN(coming soon)
+
+3. RNN(coming soon)
+
+3.1 LSTM(coming soon)
 
 
 ###12 [MCMC](https://github.com/bannima/MachineLearninginAction/tree/master/sampling/test)
@@ -107,8 +111,11 @@ Conditional Random Field 条件随机场
 ###15 Embedding(Coming soon)
 
 1. Word2Vec
+   
 
 2. Glove
+
+
 
 
 
