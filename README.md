@@ -41,7 +41,7 @@ K Nearest Neighbor with KD Tree
 
 最大熵模型
 
-###6 [svm](https://github.com/bannima/MachineLearninginAction/tree/master/svm)
+###6 [SVM](https://github.com/bannima/MachineLearninginAction/tree/master/svm)
 
 Support Vector Machines using SMO
 
@@ -66,7 +66,7 @@ bagging家族中典型代表方法。
 8.1 Gaussian misture model,高斯混合模型
 
 
-###9 [hmm](https://github.com/bannima/MachineLearninginAction/tree/master/hmm)
+###9 [HMM](https://github.com/bannima/MachineLearninginAction/tree/master/hmm)
 
 Hidden Markov Model,隐马尔可夫模型
 
