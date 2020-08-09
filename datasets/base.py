@@ -45,3 +45,25 @@ def load_svm_data():
         line = line.strip(' \n').split('\t')
         res.append([float(v) for v in line])
     return mat(res)[:, 0:-1], mat(res)[:, -1]
+
+
+def load_msr(max_line=1000,max_length=1000,min_length=5):
+    '''
+
+    Returns
+    -------
+
+    '''
+    res =[]
+    base_dir = os.path.dirname(__file__) + '/data'
+    pathfile = os.path.join(base_dir, 'msr_training.utf8')
+    count=0
+    for line in open(pathfile, 'r'):
+        if len(line)>max_length or len(line)<min_length:
+            continue
+        if count>max_line:
+            break
+        line = [word for word in line.strip(' \r\n').split(" ") if len(word) > 0]
+        res.append(line)
+        count+=1
+    return res
