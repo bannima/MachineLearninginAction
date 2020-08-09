@@ -71,7 +71,7 @@ bagging家族中典型代表方法。
 Hidden Markov Model,隐马尔可夫模型
 
 
-###10 CRF(comming soon)
+###10 [CRF](https://github.com/bannima/MachineLearninginAction/tree/master/crf)
 
 Conditional Random Field 条件随机场
 
