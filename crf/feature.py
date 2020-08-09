@@ -54,24 +54,24 @@ class FeatureBuilder(object):
         -------
 
         '''
-        self.tag_set= set()
+        self.tag_set = set()
         self.features_set = {}
         feature_vectors = []
-        for sentence, tag in zip(self.dataset,self.tags):
+        for sentence, tag in zip(self.dataset, self.tags):
             feature_vector = []
 
             for ind in range(len(tag)):
-                #tag set
+                # tag set
                 self.tag_set.add(tag[ind])
 
                 for template in self.feature_templates:
                     prior_state = tag[ind - 1] if ind - 1 >= 0 else '#'
                     current_state = tag[ind]
-                    #feature_function_num,feature_id = self._is_match(sentence, tag, ind, template)
+                    # feature_function_num,feature_id = self._is_match(sentence, tag, ind, template)
                     feature_function_num, feature_id = self._is_match(sentence, prior_state, current_state, ind,
                                                                       template)
 
-                    #save if not exist in feature function set
+                    # save if not exist in feature function set
                     if feature_function_num == -1:
                         self.features_set[feature_id] = len(self.features_set)
 
@@ -83,7 +83,6 @@ class FeatureBuilder(object):
         print("######num of features: " + str(self.feature_nums))
 
         return feature_vectors
-
 
     def _is_match(self, sentence, prior_state, current_state, ind, template):
         '''
@@ -106,23 +105,23 @@ class FeatureBuilder(object):
         '''
         # out of array index
         if template.x_indexs[0] + ind < 0 or template.x_indexs[-1] + ind >= len(sentence):
-            return (-2,None)
+            return (-2, None)
 
         # Unigram features
         if template.type.startswith('U'):
-            #state = tag[ind]
+            # state = tag[ind]
             state = current_state
 
         # Bigram features
         elif template.type.startswith('B'):
-            #state = "".join(tag[i] for i in [ind - 1, ind])
-            if prior_state=='#':
-                return (-2,None)
-            state = prior_state+current_state
+            # state = "".join(tag[i] for i in [ind - 1, ind])
+            if prior_state == '#':
+                return (-2, None)
+            state = prior_state + current_state
 
         # unknown type
         else:
-            return (-2,None)
+            return (-2, None)
 
         # save feature ids
         x_values = "".join([sentence[i + ind] for i in template.x_indexs])
@@ -151,15 +150,14 @@ class FeatureBuilder(object):
 
         for template in self.feature_templates:
             # feature funciton numbers
-            feature_function_num, feature_id = self._is_match(sentence, prior_state,current_state, ind, template)
+            feature_function_num, feature_id = self._is_match(sentence, prior_state, current_state, ind, template)
             # ignore -1 and -2 case, only non-negative integer means the matched feature function number.
             if feature_function_num >= 0:
                 feature_vector.append(feature_function_num)
 
         return feature_vector
 
-
-    def match(self,sentence,tag):
+    def match(self, sentence, tag):
         '''
         given word sentence and corresponding tags, return the hit feature function id list
 
@@ -177,17 +175,14 @@ class FeatureBuilder(object):
         for ind in range(len(tag)):
             for template in self.feature_templates:
                 # means not exist, just skip this B type feature function
-                prior_state = tag[ind-1] if ind-1>=0 else '#'
+                prior_state = tag[ind - 1] if ind - 1 >= 0 else '#'
                 current_state = tag[ind]
-                #feature funciton numbers
-                feature_function_num,feature_id = self._is_match(sentence, prior_state,current_state, ind, template)
-                #feature_function_num,feature_id = self._is_match(sentence, tag, ind, template)
+                # feature funciton numbers
+                feature_function_num, feature_id = self._is_match(sentence, prior_state, current_state, ind, template)
+                # feature_function_num,feature_id = self._is_match(sentence, tag, ind, template)
 
                 # ignore -1 and -2 case, only non-negative integer means the matched feature function number.
-                if feature_function_num>=0:
+                if feature_function_num >= 0:
                     feature_vector.append(feature_function_num)
 
         return feature_vector
-
-
-

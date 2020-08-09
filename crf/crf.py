@@ -176,8 +176,7 @@ class LinearChainCRF(Classifier):
             predicts.append(self._predict_sentence(sentence))
         return predicts
 
-
-    def _transfer_prob(self,sentence,prior,current,index):
+    def _transfer_prob(self, sentence, prior, current, index):
         '''
         calc the transfer probability from prior state to current state in the position index for senetence
 
@@ -215,21 +214,22 @@ class LinearChainCRF(Classifier):
         self.path = np.zeros((m, n))
         for i in range(n):
             for j in range(m):
-                #start position
-                if i==0:
-                    self.delta[j][i] = self._transfer_prob(sentence,'#',self.tag_dict[j],i)
+                # start position
+                if i == 0:
+                    self.delta[j][i] = self._transfer_prob(sentence, '#', self.tag_dict[j], i)
                     continue
                 probs = []
                 for k in range(m):
-                    probs.append(self._transfer_prob(sentence,self.tag_dict[k],self.tag_dict[j],i)+self.delta[k][i-1])
-                self.delta[j][i]=max(probs)
-                self.path[j][i-1]=np.argmax(probs)
+                    probs.append(
+                        self._transfer_prob(sentence, self.tag_dict[k], self.tag_dict[j], i) + self.delta[k][i - 1])
+                self.delta[j][i] = max(probs)
+                self.path[j][i - 1] = np.argmax(probs)
 
-        #traceback for maximum probability path
-        max_path=[]
+        # traceback for maximum probability path
+        max_path = []
         current = np.argmax(self.delta[:, -1])
         max_path.append(current)
-        for i in reversed(range(n-1)):
+        for i in reversed(range(n - 1)):
             current = int(self.path[current, i])
             max_path.append(current)
 
@@ -251,11 +251,6 @@ class LinearChainCRF(Classifier):
                     k = self.tag_set[state2]
                     probs.append(self._transfer_prob(sentence, state, state2, index)+self.delta[index][j])
         '''
-
-
-
-
-
 
 
 class Node(object):

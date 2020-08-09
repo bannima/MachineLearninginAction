@@ -8,9 +8,9 @@ Date: 2020/5/31 10:30 PM
 Version: 0.1
 """
 from .corpus import Corpus
+from .crf import LinearChainCRF
 from .feature import FeatureBuilder
 from .template import TemplateBuilder
-from .crf import LinearChainCRF
 
 __all__ = ['TemplateBuilder',
            'Corpus',

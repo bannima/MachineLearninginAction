@@ -7,8 +7,9 @@ Author: Barry Chow
 Date: 2020/8/6 11:53 PM
 Version: 0.1
 """
-from crf import Corpus, TemplateBuilder, FeatureBuilder
 from sklearn.model_selection import train_test_split
+
+from crf import Corpus, TemplateBuilder, FeatureBuilder
 
 
 class TestGenerateFeatures(object):
@@ -17,7 +18,7 @@ class TestGenerateFeatures(object):
         template_builder = TemplateBuilder("feature.template")
 
         # input dataset and tags
-        msr_corpus = Corpus('MSR',max_length=100, max_samples=1000)
+        msr_corpus = Corpus('MSR', max_length=100, max_samples=1000)
 
         dataset, tags = msr_corpus.dataset, msr_corpus.tags
 
@@ -25,5 +26,4 @@ class TestGenerateFeatures(object):
         X_train, X_test, Y_train, Y_test = train_test_split(dataset, tags, test_size=0.3, random_state=0)
 
         # build feature functions according to input dataset and feature templates
-        feature_builder = FeatureBuilder(X_train,Y_train,template_builder)
-
+        feature_builder = FeatureBuilder(X_train, Y_train, template_builder)

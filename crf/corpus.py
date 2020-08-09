@@ -9,16 +9,17 @@ Version: 0.1
 """
 from datasets import load_msr
 
-DATASET_FUNCTIONS={
-    'MSR':load_msr
+DATASET_FUNCTIONS = {
+    'MSR': load_msr
 }
+
 
 class Corpus(object):
 
-    def __init__(self, dataset='MSR',max_samples = 1000,max_length=1000,min_length=5):
+    def __init__(self, dataset='MSR', max_samples=1000, max_length=1000, min_length=5):
         self.max_samples = max_samples
-        self.max_length=max_length
-        self.min_length=min_length
+        self.max_length = max_length
+        self.min_length = min_length
         self.data_type = dataset
         self._preprocess()
 
@@ -58,8 +59,8 @@ class Corpus(object):
         -------
 
         '''
-        data = DATASET_FUNCTIONS[self.data_type](self.max_samples,self.max_length,self.min_length)
-        self.tags,self.dataset = [],[]
+        data = DATASET_FUNCTIONS[self.data_type](self.max_samples, self.max_length, self.min_length)
+        self.tags, self.dataset = [], []
         for line in data:
             self.tags.append(self._tag_sequence(line))
             self.dataset.append("".join(line))
