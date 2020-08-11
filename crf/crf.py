@@ -236,35 +236,3 @@ class LinearChainCRF(Classifier):
         max_path.reverse()
         return ''.join([self.tag_dict[path] for path in max_path])
 
-        '''for index in range(n):
-            for state in self.tag_set:
-
-                # start position
-                j = self.tag_dict[state]
-                if index == 0:
-                    prior_state = '#'
-                    self.delta[index][j] = self._transfer_prob(sentence,'#',state,index)
-                    continue
-
-                probs = []
-                for state2 in self.tag_set:
-                    k = self.tag_set[state2]
-                    probs.append(self._transfer_prob(sentence, state, state2, index)+self.delta[index][j])
-        '''
-
-
-class Node(object):
-    def __init__(self, step, state, prob, prior):
-        '''
-
-        Parameters
-        ----------
-        step
-        state
-        prob
-        prior
-        '''
-        self.step = step
-        self.state = state
-        self.prob = prob
-        self.prior = prior
