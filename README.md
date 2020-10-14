@@ -1,11 +1,11 @@
-#Machine Learning Models in Action
+# Machine Learning Models in Action
 ##【机器学习实践专题】
 
 主要根据李航老师《统计学习方法》，仔细梳理主流机器学习模型，编码实现。
 具体涵盖以下方法：
 
 
-###1 [linear_model](https://github.com/bannima/MachineLearninginAction/tree/master/linear_model)
+### 1 [linear_model](https://github.com/bannima/MachineLearninginAction/tree/master/linear_model)
 
 1.1 [Perceptron](https://github.com/bannima/MachineLearninginAction/blob/master/linear_model/perceptron.py)
 
@@ -15,15 +15,15 @@
 
 1.4 [Maximum Entropy Model](https://github.com/bannima/MachineLearninginAction/blob/master/linear_model/maximum_entropy.py)
 
-###2 [neighbors](https://github.com/bannima/MachineLearninginAction/tree/master/neighbors)
+### 2 [neighbors](https://github.com/bannima/MachineLearninginAction/tree/master/neighbors)
 
 K Nearest Neighbor with KD Tree
 
-###3 [bayes](https://github.com/bannima/MachineLearninginAction/tree/master/bayes)
+### 3 [bayes](https://github.com/bannima/MachineLearninginAction/tree/master/bayes)
 
 朴素贝叶斯
 
-###4 [tree](https://github.com/bannima/MachineLearninginAction/tree/master/tree)
+### 4 [tree](https://github.com/bannima/MachineLearninginAction/tree/master/tree)
 
 4.1 [ID3](https://github.com/bannima/MachineLearninginAction/blob/master/tree/tree.py)
 
@@ -37,15 +37,15 @@ K Nearest Neighbor with KD Tree
 
 分类与回归树，基于二叉树，可分类也可回归。
 
-###5 [Maximum Entropy](https://github.com/bannima/MachineLearninginAction/blob/master/linear_model/maximum_entropy.py)
+### 5 [Maximum Entropy](https://github.com/bannima/MachineLearninginAction/blob/master/linear_model/maximum_entropy.py)
 
 最大熵模型
 
-###6 [SVM](https://github.com/bannima/MachineLearninginAction/tree/master/svm)
+### 6 [SVM](https://github.com/bannima/MachineLearninginAction/tree/master/svm)
 
 Support Vector Machines using SMO
 
-###7 [ensemble](https://github.com/bannima/MachineLearninginAction/tree/master/ensemble)
+### 7 [ensemble](https://github.com/bannima/MachineLearninginAction/tree/master/ensemble)
 
 7.1 [Adaboost](https://github.com/bannima/MachineLearninginAction/blob/master/_adaboost/adaboost.py)
 
@@ -61,22 +61,23 @@ bagging家族中典型代表方法。
 
 7.4 XGBoost（coming soon）
 
-###8 EM（coming soon）
+### 8 EM（coming soon）
 
 8.1 Gaussian misture model,高斯混合模型
 
 
-###9 [HMM](https://github.com/bannima/MachineLearninginAction/tree/master/hmm)
+### 9 [HMM](https://github.com/bannima/MachineLearninginAction/tree/master/hmm)
 
 Hidden Markov Model,隐马尔可夫模型
 
 
-###10 [CRF](https://github.com/bannima/MachineLearninginAction/tree/master/crf)
+### 10 [CRF](https://github.com/bannima/MachineLearninginAction/tree/master/crf)
 
-Conditional Random Field 条件随机场
+Conditional Random Field 条件随机场，利用梯度下降学习参数，用维特比算法进行序列预测，
+并用中文分词实验中检验结果。
 
 
-###11 [neural networks](https://github.com/bannima/MachineLearninginAction/tree/master/neural_networks)
+### 11 [neural networks](https://github.com/bannima/MachineLearninginAction/tree/master/neural_networks)
 1. [DNN](https://github.com/bannima/MachineLearninginAction/blob/master/neural_networks/dnn.py)
 
 2. CNN(coming soon)
@@ -86,13 +87,13 @@ Conditional Random Field 条件随机场
 3.1 LSTM(coming soon)
 
 
-###12 [MCMC](https://github.com/bannima/MachineLearninginAction/tree/master/sampling/test)
+### 12 [MCMC](https://github.com/bannima/MachineLearninginAction/tree/master/sampling/test)
 
 1.Metropolis-Hasting
 
 2.Gibbs
 
-###13 [Topic Model](https://github.com/bannima/MachineLearninginAction/tree/master/topic_modeling)
+### 13 [Topic Model](https://github.com/bannima/MachineLearninginAction/tree/master/topic_modeling)
 
 1.LSA
 
@@ -100,7 +101,7 @@ Conditional Random Field 条件随机场
 
 3.LDA
 
-###14 Cluster(Coming soon)
+### 14 Cluster(Coming soon)
 
 1.K-Means
 
@@ -108,7 +109,7 @@ Conditional Random Field 条件随机场
 
 3.DBSCAN
 
-###15 Embedding(Coming soon)
+### 15 Embedding(Coming soon)
 
 1. Word2Vec
    
@@ -117,7 +118,7 @@ Conditional Random Field 条件随机场
 
 
 
-###参考资料
+### 参考资料
 
 1 《统计学习方法》李航 第二版
 
