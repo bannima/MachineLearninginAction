@@ -9,8 +9,11 @@ Version: 0.1
 """
 from .gradient_boosting import GradientBoostingClassifier
 from .gradient_boosting import GradientBoostingRegressor
+from .bagging import RandomForestClassifier,RandomForestRegressor
 
 __all__ = [
     'GradientBoostingRegressor',
-    'GradientBoostingClassifier'
+    'GradientBoostingClassifier',
+    'RandomForestClassifier',
+    'RandomForestRegressor'
 ]
