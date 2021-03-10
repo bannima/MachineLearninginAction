@@ -51,15 +51,17 @@ Support Vector Machines using SMO
 
 7.1 [Adaboost](https://github.com/bannima/MachineLearninginAction/blob/master/_adaboost/adaboost.py)
 
-boosting家族中具有代表性的方法一种，基于前向加法模型。
+boosting家族中具有代表性的方法一种，基于前向加法模型，基本学习器为基本分类器，只能处理二分类问题，可看作GBDT的特例，
+此时基础学习器为基本分类器，损失函数为指数函数。
 
-7.2 Random Forest (coming soon)
+7.2 [Random Forest](https://github.com/bannima/MachineLearninginAction/blob/master/ensemble/bagging.py)
 
-bagging家族中典型代表方法。
+Bagging的代表性算法，基于样本随机采样(行采样)和部分特征采样（列采样），根据基础决策树不同，可分别用于回归或者二分类、多分类问题。
+
 
 7.3 [GBDT](https://github.com/bannima/MachineLearninginAction/blob/master/ensemble/gradient_boosting.py)
 
-梯度提升树。
+基于前向加法模型，基本学习器采用决策树，可解决分类以及回归问题，加法模型每一步都在拟合损失函数的负梯度。
 
 7.4 XGBoost（coming soon）
 
@@ -102,6 +104,7 @@ Conditional Random Field 条件随机场，利用梯度下降学习参数，用�
 2.PLSA
 
 3.LDA
+
 
 ### 14 Cluster(Coming soon)
 
