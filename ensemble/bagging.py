@@ -84,7 +84,7 @@ class RandomForestRegressor(ForestModel):
             data = X[[sample_indices]]
             data = data[:, feature_indices]
             target = y[[sample_indices]]
-            # 进行cart分类树训练
+            # 进行cart回归树训练
             basic_tree = CARTRegressor()
             basic_tree.fit(data, target)
 
