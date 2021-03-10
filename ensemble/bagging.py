@@ -15,10 +15,6 @@ from numpy import argmax,bincount
 from base import Classifier
 from tree import CARTRegressor
 from tree import CARTClassifier
-from tree import CRITERION
-from utils import LOSS_FUNCTIONS
-from utils import one_hot
-
 
 
 class ForestModel(Classifier,metaclass=ABCMeta):
