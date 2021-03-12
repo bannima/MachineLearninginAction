@@ -27,15 +27,15 @@ K Nearest Neighbor with KD Tree
 
 ### 4 [tree](https://github.com/bannima/MachineLearninginAction/tree/master/tree)
 
-4.1 [ID3](https://github.com/bannima/MachineLearninginAction/blob/master/tree/tree.py)
+#### 4.1 [ID3](https://github.com/bannima/MachineLearninginAction/blob/master/tree/tree.py)
 
 基于信息增益作为生成决策树的准则。
 
-4.2 C4.5
+#### 4.2 C4.5
 
 基于信息增益比作为生成决策树的准则。
 
-4.3 [CART Classification and Regression](https://github.com/bannima/MachineLearninginAction/blob/master/tree/tree.py)
+#### 4.3 [CART Classification and Regression](https://github.com/bannima/MachineLearninginAction/blob/master/tree/tree.py)
 
 分类与回归树，基于二叉树，可分类也可回归。
 
@@ -49,21 +49,20 @@ Support Vector Machines using SMO
 
 ### 7 [ensemble](https://github.com/bannima/MachineLearninginAction/tree/master/ensemble)
 
-7.1 [Adaboost](https://github.com/bannima/MachineLearninginAction/blob/master/_adaboost/adaboost.py)
+#### 7.1 [Adaboost](https://github.com/bannima/MachineLearninginAction/blob/master/ensemble/boosting.py)
 
 boosting家族中具有代表性的方法一种，基于前向加法模型，基本学习器为基本分类器，只能处理二分类问题，可看作GBDT的特例，
 此时基础学习器为基本分类器，损失函数为指数函数。
 
-7.2 [Random Forest](https://github.com/bannima/MachineLearninginAction/blob/master/ensemble/bagging.py)
+#### 7.2 [Random Forest](https://github.com/bannima/MachineLearninginAction/blob/master/ensemble/bagging.py)
 
 Bagging的代表性算法，基于样本随机采样(行采样)和部分特征采样（列采样），根据基础决策树不同，可分别用于回归或者二分类、多分类问题。
 
 
-7.3 [GBDT](https://github.com/bannima/MachineLearninginAction/blob/master/ensemble/gradient_boosting.py)
+#### 7.3 [GBDT](https://github.com/bannima/MachineLearninginAction/blob/master/ensemble/gradient_boosting.py)
 
 基于前向加法模型，基本学习器采用决策树，可解决分类以及回归问题，加法模型每一步都在拟合损失函数的负梯度。
 
-7.4 XGBoost（coming soon）
 
 ### 8 EM（coming soon）
 
@@ -97,6 +96,7 @@ Conditional Random Field 条件随机场，利用梯度下降学习参数，用�
 
 2.Gibbs
 
+
 ### 13 [Topic Model](https://github.com/bannima/MachineLearninginAction/tree/master/topic_modeling)
 
 1.LSA
@@ -104,7 +104,6 @@ Conditional Random Field 条件随机场，利用梯度下降学习参数，用�
 2.PLSA
 
 3.LDA
-
 
 ### 14 Cluster(Coming soon)
 
@@ -114,12 +113,10 @@ Conditional Random Field 条件随机场，利用梯度下降学习参数，用�
 
 3.DBSCAN
 
+
 ### 15 Embedding(Coming soon)
 
 1. Word2Vec
-   
-
-2. Glove
 
 
 
