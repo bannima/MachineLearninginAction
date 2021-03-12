@@ -6,23 +6,23 @@
 
 - ### 第1章 统计学习方法概论
 
-- ### 第2章 [感知机]()
+- ### 第2章 感知机
 
     - #### 2.1 [感知机](https://github.com/bannima/MachineLearninginAction/blob/master/linear_model/perceptron.py)
 
     - #### 2.1 [Linear Regression]()
 
 
-- ### 第3章 [k近邻法]()
+- ### 第3章 k近邻法
 
      - [K Nearest Neighbor with KD Tree](https://github.com/bannima/MachineLearninginAction/tree/master/neighbors)
 
-- ### 第4章 [朴素贝叶斯]()
+- ### 第4章 朴素贝叶斯
 
      - [朴素贝叶斯](https://github.com/bannima/MachineLearninginAction/tree/master/bayes)
 
 
-- ### 第5章 [决策树]()
+- ### 第5章 决策树
 
     - #### 5.1 [ID3](https://github.com/bannima/MachineLearninginAction/blob/master/tree/tree.py)
 
@@ -36,16 +36,16 @@
 
         分类与回归树，基于二叉树，可分类也可回归。
 
-- ### 第6章 [逻辑斯蒂回归与最大熵模型]()
+- ### 第6章 逻辑斯蒂回归与最大熵模型
 
     - #### 6.1  [逻辑斯蒂回归](https://github.com/bannima/MachineLearninginAction/blob/master/linear_model/regression.py)
 
     - #### 6.2 [最大熵模型](https://github.com/bannima/MachineLearninginAction/blob/master/linear_model/maximum_entropy.py)
 
-- ### 第7章 [支持向量机]()
+- ### 第7章 支持向量机
     - [Support Vector Machines using SMO](https://github.com/bannima/MachineLearninginAction/tree/master/svm)
     
-- ### 第8章 [提升方法]()
+- ### 第8章 提升方法
 
     - #### 8.1 [Adaboost](https://github.com/bannima/MachineLearninginAction/blob/master/ensemble/boosting.py)
 
@@ -66,12 +66,12 @@
     - [Gaussian misture model,高斯混合模型]()
 
 
-- ### 第10章 [隐马尔可夫模型]()
+- ### 第10章 隐马尔可夫模型
 
     - [Hidden Markov Model,隐马尔可夫模型](https://github.com/bannima/MachineLearninginAction/tree/master/hmm)
 
 
-- ### 第11章 [条件随机场]()
+- ### 第11章 条件随机场
     - [Conditional Random Field 条件随机场](https://github.com/bannima/MachineLearninginAction/tree/master/crf)
        利用梯度下降学习参数，用维特比算法进行序列预测，
 并用中文分词实验中检验结果。
@@ -94,13 +94,14 @@
 
 - ### 第16章 主成分分析
 
+
 - ### 第17章 潜在语义分析
-    - #### 17.1 LSA
+
+    - [LSA]()
 
 - ### 第18章 概率潜在语义分析
 
-    - #### 18.1 PLSA
-
+    - [PLSA]()
 
 - ### 第19章 [马尔可夫链蒙特卡罗法](https://github.com/bannima/MachineLearninginAction/tree/master/sampling/test)
 
@@ -110,9 +111,9 @@
 
 - ### 第20章 潜在狄利克雷分配
 
-    - #### 20.1 LDA
+    - [LDA]()
 
-- ### 第21章 [PageRank算法]()
+- ### 第21章 PageRank算法
 
     - [PageRank](https://github.com/bannima/MachineLearninginAction/blob/master/pagerank/page_rank.py)
 
