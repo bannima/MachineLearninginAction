@@ -10,10 +10,12 @@ Version: 0.1
 from .gradient_boosting import GradientBoostingClassifier
 from .gradient_boosting import GradientBoostingRegressor
 from .bagging import RandomForestClassifier,RandomForestRegressor
+from .boosting import AdaBoostClassifier
 
 __all__ = [
     'GradientBoostingRegressor',
     'GradientBoostingClassifier',
     'RandomForestClassifier',
-    'RandomForestRegressor'
+    'RandomForestRegressor',
+    'AdaBoostClassifier'
 ]

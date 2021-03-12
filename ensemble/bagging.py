@@ -105,9 +105,9 @@ class RandomForestClassifier(ForestModel):
 
     def __init__(self, n_estimators, sample_scale, feature_scale):
         super(RandomForestClassifier, self).__init__(
-            n_estimators,
-            sample_scale,
-            feature_scale)
+            n_estimators, #基本分类器的数目
+            sample_scale, #样本采样的比例
+            feature_scale) #特征采样的比例
 
 
     def fit(self, X, y):
