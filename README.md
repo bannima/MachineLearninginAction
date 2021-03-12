@@ -10,7 +10,7 @@
 
     - #### 2.1 [感知机](https://github.com/bannima/MachineLearninginAction/blob/master/linear_model/perceptron.py)
 
-    - #### 2.1 [Linear Regression]()
+    - #### 2.2 [Linear Regression]()
 
 
 - ### 第3章 k近邻法
@@ -86,7 +86,7 @@
 
     - #### 14.2 Hierarchical Cluster
 
-    - #### 14.33 DBSCAN
+    - #### 14.3 DBSCAN
 
 
 - ### 第15章 奇异值分解
