@@ -32,7 +32,7 @@
 
         基于信息增益比作为生成决策树的准则。
 
-    - ### 5.3 [CART分类树和CART回归树](https://github.com/bannima/MachineLearninginAction/blob/master/tree/tree.py)
+    - #### 5.3 [CART分类树和CART回归树](https://github.com/bannima/MachineLearninginAction/blob/master/tree/tree.py)
 
         分类与回归树，基于二叉树，可分类也可回归。
 
@@ -131,6 +131,9 @@
 - ### 2 [Embedding]()
 
     - #### 1 Word2Vec
+    
+    - #### 2 pytorch-word2vec
+    
 
 
 ### 参考资料
