@@ -67,3 +67,37 @@ def load_msr(max_line=1000,max_length=1000,min_length=5):
         res.append(line)
         count+=1
     return res
+
+def loadHorseColicDataset(filename):
+    numFeat = len(open(filename).readline().split('\t'))
+    dataMat = [];
+    labelMat = []
+    fr = open(filename)
+    for line in open(filename):
+        lineArr = []
+        curLine = line.strip().split('\t')
+        for i in range(numFeat - 1):
+            lineArr.append(float(curLine[i]))
+        dataMat.append(lineArr)
+        labelMat.append(float(curLine[-1]))
+    return dataMat, labelMat
+
+def loadHorseColic():
+    base_dir = os.path.dirname(__file__) + '/data'
+    train_file = os.path.join(base_dir, 'horseColicTraining2.txt')
+    test_file = os.path.join(base_dir, 'horseColicTest2.txt')
+
+    train_X, train_y = loadHorseColicDataset(train_file)
+    test_X, test_y = loadHorseColicDataset(test_file)
+    return train_X,train_y,test_X,test_y
+
+def loadAGNewsTestCorpus():
+    base_dir = os.path.dirname(__file__) + '/data'
+    file = os.path.join(base_dir, 'agnews_test_texts.txt')
+    corpus = []
+    with open(file,'r',encoding='utf-8') as fread:
+        for line in fread.readlines():
+            corpus.append(line)
+    return corpus
+
+
