@@ -128,9 +128,9 @@
 
         - #### 3.1 LSTM(coming soon)
 
-- ### 2 [Embedding]()
+- ### 2 [Embedding](https://github.com/bannima/MachineLearninginAction/tree/master/embedding)
 
-    - #### 1 Word2Vec
+    - #### 1 [Word2Vec](https://github.com/bannima/MachineLearninginAction/blob/master/embedding/word2vec.py)
     
     - #### 2 pytorch-word2vec
     
